@@ -1,0 +1,11 @@
+<Context>
+    <Resource
+            name="jdbc/seng2050a3_java"
+            auth="Container"
+            type="javax.sql.DataSource"
+            username="seng2050"
+            password="seng2050A3"
+            driverClassName="com.mysql.jdbc.Driver"
+            url="jdbc:mysql://seng2050.bensutter.net:3306/seng2050a3_java"
+    />
+</Context>

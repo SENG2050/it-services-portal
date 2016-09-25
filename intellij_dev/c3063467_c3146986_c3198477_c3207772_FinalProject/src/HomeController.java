@@ -5,16 +5,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * IssueController.java
- *
- * Handles main application HTTP request/response
+ * Created by b8ne on 25/09/2016.
  */
-public class IssueController extends HttpServlet {
+public class HomeController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        request.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
     }
 }
