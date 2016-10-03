@@ -26,7 +26,7 @@ Then click on Apply and finally OK, and you can now run the project using Run > 
 
 ## Copying To Tomcat For Submission
 
-All that is required to submit the final compiled project is to copy the ```out/artifacts/it_services_portal_war_exploded``` folder contents to the Timcat webapps folder, and rename it to ```c3063467_c3146986_c3198477_c3207772_FinalProject```.
+All that is required to submit the final compiled project is to copy the ```out/artifacts/it_services_portal_war_exploded``` folder contents to the Tomcat webapps folder, and rename it to ```c3063467_c3146986_c3198477_c3207772_FinalProject```.
 
 Please note that this is not required to develop the project, as IDEA will take care of deploying Tomcat for you as above.
 
