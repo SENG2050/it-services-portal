@@ -3,9 +3,9 @@
 
 <t:page>
     <jsp:attribute name="title">
-        Home
+        Issues Index Page
     </jsp:attribute>
     <jsp:body>
-        <p>Hi I'm the heart of the message</p>
+        <p>Issues Index Page</p>
     </jsp:body>
 </t:page>

@@ -3,9 +3,9 @@
 
 <t:page>
     <jsp:attribute name="title">
-        Index
+        KB Search Page
     </jsp:attribute>
-  <jsp:body>
-    <p>This is the index page.</p>
-  </jsp:body>
+    <jsp:body>
+        <p>KB Search Page</p>
+    </jsp:body>
 </t:page>
