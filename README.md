@@ -4,7 +4,7 @@ To clone the project, run this command in the terminal:
 
     git clone https://github.com/SENG2050/it-services-portal.git
     
-# Getting Setup In IDEA
+## Getting Setup In IDEA
 
 The project should open and build using the default settings provided. You can build the project using Build > Rebuild Project.
 
@@ -24,7 +24,7 @@ You will see a red alert box with a warning for no artifacts marked for deployme
 
 Then click on Apply and finally OK, and you can now run the project using Run > Run 'Tomcat Server'.
 
-# Copying To Tomcat For Submission
+## Copying To Tomcat For Submission
 
 All that is required to submit the final compiled project is to copy the ```out/artifacts/it_services_portal_war_exploded``` folder contents to the Timcat webapps folder, and rename it to ```c3063467_c3146986_c3198477_c3207772_FinalProject```.
 
