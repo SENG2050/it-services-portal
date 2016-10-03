@@ -5,14 +5,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by b8ne on 25/09/2016.
+ * Displays all knowledge base (KB) articles and a search bar
  */
-public class HomeController extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
+public class KB_IndexController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
+
     }
 }

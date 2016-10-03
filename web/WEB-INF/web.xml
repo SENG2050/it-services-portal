@@ -12,29 +12,92 @@
     </resource-ref>
 
     <servlet>
-        <servlet-name>AuthController</servlet-name>
-        <servlet-class>AuthController</servlet-class>
+        <servlet-name>IndexController</servlet-name>
+        <servlet-class>IndexController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>AuthController</servlet-name>
+        <servlet-name>IndexController</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>HomeController</servlet-name>
-        <servlet-class>HomeController</servlet-class>
+        <servlet-name>KB_IndexController</servlet-name>
+        <servlet-class>KB_IndexController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>HomeController</servlet-name>
-        <url-pattern>/home</url-pattern>
+        <servlet-name>KB_IndexController</servlet-name>
+        <url-pattern>/kb</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>IssueController</servlet-name>
-        <servlet-class>IssueController</servlet-class>
+        <servlet-name>KB_SearchController</servlet-name>
+        <servlet-class>KB_SearchController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>IssueController</servlet-name>
-        <url-pattern>/issue/*</url-pattern>
+        <servlet-name>KB_SearchController</servlet-name>
+        <url-pattern>/kb/search/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>KB_ViewController</servlet-name>
+        <servlet-class>KB_ViewController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>KB_ViewController</servlet-name>
+        <url-pattern>/kb/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LoginController</servlet-name>
+        <servlet-class>LoginController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginController</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>LogoutController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Issues_IndexController</servlet-name>
+        <servlet-class>Issues_IndexController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Issues_IndexController</servlet-name>
+        <url-pattern>/issues</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Issues_SearchController</servlet-name>
+        <servlet-class>Issues_SearchController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Issues_SearchController</servlet-name>
+        <url-pattern>/issues/search/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Issues_NewController</servlet-name>
+        <servlet-class>Issues_NewController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Issues_NewController</servlet-name>
+        <url-pattern>/issues/new</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Issues_ViewController</servlet-name>
+        <servlet-class>Issues_ViewController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Issues_ViewController</servlet-name>
+        <url-pattern>/issues/*</url-pattern>
     </servlet-mapping>
 </web-app>
