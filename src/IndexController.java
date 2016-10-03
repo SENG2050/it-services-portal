@@ -9,6 +9,6 @@ import java.io.IOException;
  */
 public class IndexController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        response.sendRedirect("/kb");
     }
 }

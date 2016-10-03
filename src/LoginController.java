@@ -8,7 +8,8 @@ import java.io.IOException;
 /**
  * Allows the user to login, and then redirect to their previous page
  */
-public class LoginController extends HttpServlet {@Override
+public class LoginController extends HttpServlet {
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Init Dispatcher
         RequestDispatcher dispatcher;
@@ -16,7 +17,7 @@ public class LoginController extends HttpServlet {@Override
         // Check if session exists (already logged in)
         if (request.getSession().getAttribute("PortalBean") != null) {
             // Session exists - check if it contains a user
-            PortalBean bean = (PortalBean)request.getSession().getAttribute("PortalBean");
+            PortalBean bean = (PortalBean) request.getSession().getAttribute("PortalBean");
             if (bean != null) {
                 // User exists (they are logged in) redirect to home
                 // *** NOTE: In real cases we would also need to check for auth expiry etc
@@ -50,7 +51,7 @@ public class LoginController extends HttpServlet {@Override
         // First pull in data
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        PortalBean bean = (PortalBean)request.getSession().getAttribute("PortalBean");
+        PortalBean bean = (PortalBean) request.getSession().getAttribute("PortalBean");
 
         if (email != null && password != null) {
             // Query user in DB

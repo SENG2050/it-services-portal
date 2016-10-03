@@ -9,6 +9,6 @@ import java.io.IOException;
  */
 public class KB_SearchController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        request.getRequestDispatcher("/WEB-INF/jsp/kb/search.jsp").forward(request, response);
     }
 }

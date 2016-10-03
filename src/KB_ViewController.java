@@ -9,6 +9,6 @@ import java.io.IOException;
  */
 public class KB_ViewController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        request.getRequestDispatcher("/WEB-INF/jsp/kb/view.jsp").forward(request, response);
     }
 }
