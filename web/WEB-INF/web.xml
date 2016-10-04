@@ -35,7 +35,16 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>KB_SearchController</servlet-name>
-        <url-pattern>/kb/search/*</url-pattern>
+        <url-pattern>/kb/search</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>KB_SuggestController</servlet-name>
+        <servlet-class>KB_SuggestController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>KB_SuggestController</servlet-name>
+        <url-pattern>/kb/suggest</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -80,7 +89,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Issues_SearchController</servlet-name>
-        <url-pattern>/issues/search/*</url-pattern>
+        <url-pattern>/issues/search</url-pattern>
     </servlet-mapping>
 
     <servlet>
