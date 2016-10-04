@@ -39,6 +39,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>KB_SuggestController</servlet-name>
+        <servlet-class>KB_SuggestController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>KB_SuggestController</servlet-name>
+        <url-pattern>/kb/suggest/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>KB_ViewController</servlet-name>
         <servlet-class>KB_ViewController</servlet-class>
     </servlet>
