@@ -2,7 +2,9 @@
 
 To clone the project, run this command in the terminal:
 
-    git clone https://github.com/SENG2050/it-services-portal.git
+    git clone --recursive https://github.com/SENG2050/it-services-portal.git
+
+You will be prompted for credentials for Bitbucket, which we have used to keep the proprietary theme closed-source to stay within the theme's licensing guidelines. To get access to the private repository contact [Mitchell Davis](https://github.com/mitchdav).
     
 ## Getting Setup In IDEA
 

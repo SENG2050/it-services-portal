@@ -1,0 +1,3 @@
+[submodule "web/theme"]
+	path = web/theme
+	url = https://seng2050-theme@bitbucket.org/wingmanwebdesign/seng2050-theme.git
