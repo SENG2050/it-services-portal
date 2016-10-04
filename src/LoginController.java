@@ -4,9 +4,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 /**
- * Allows the user to login, and then redirect to their previous page
+ * LoginController
+ *
+ * Handles all login requests
+ *
+ * Author: Ben Sutter
+ * Updated: 5/10/16
  */
 public class LoginController extends HttpServlet {
     private String referrer;
@@ -40,7 +46,6 @@ public class LoginController extends HttpServlet {
         } else {
             // Session doesnt exist - create a new bean instance and initiate it
             PortalBean bean = new PortalBean();
-            bean.openDBConnection();
             // Add it to the session
             request.getSession().setAttribute("PortalBean", bean);
 
@@ -70,12 +75,18 @@ public class LoginController extends HttpServlet {
 
         if (email != null && password != null) {
             // Query user in DB
-            //@TODO: Update this once DB Wrapper is complete
-            User user = bean.getUserLogin(email);
-
-            // If email exists and password matches, instantiate a new user instance
-            if (user != null) {
-                if (user.getPassword().equals(password)) {
+            User user = null;
+            List<User> users = bean.userDBWrapper.getUserByEmail(email);
+            if (users.isEmpty()) {
+                // Add error message for failed login
+                request.setAttribute("errorMessage", "Email does not exist");
+            } else {
+                // Pull out user
+                for (User u : users) {
+                    user = u;
+                }
+                // Test password
+                if (user != null && user.getPassword().equals(password)) {
                     // Success - add user to bean
                     bean.setUser(user);
                     // Save updated bean to session
@@ -86,9 +97,6 @@ public class LoginController extends HttpServlet {
                     // Add error message for failed login
                     request.setAttribute("errorMessage", "Incorrect password");
                 }
-            } else {
-                // Add error message for failed login
-                request.setAttribute("errorMessage", "Email does not exist");
             }
         } else {
             // Add error message for failed login

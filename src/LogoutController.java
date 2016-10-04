@@ -5,7 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Logs the user out, and then redirects to /
+ * LogoutController
+ *
+ * Handles user logout
+ *
+ * Author: Ben Sutter
+ * Updated: 5/10/16
  */
 public class LogoutController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
