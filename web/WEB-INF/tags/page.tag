@@ -1,8 +1,8 @@
 <%@tag description="Overall Page template" pageEncoding="UTF-8" %>
 <%@attribute name="title" fragment="true" %>
+<%@attribute name="scripts" fragment="true" %>
 
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,6 +21,7 @@
     <link href="theme/css/syntaxhighlighter/shCore.css" rel="stylesheet">
     <link href="theme/css/style-blue2.css" rel="stylesheet" title="default">
     <link href="theme/css/width-full.css" rel="stylesheet" title="default">
+    <link href="theme/css/custom.css" rel="stylesheet" title="default">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -31,12 +32,11 @@
     <!-- This can be changed to our Tomcat folder prefix at submission time -->
     <base href="/">
 </head>
+<body>
 <!-- Preloader -->
 <div id="preloader">
     <div id="status">&nbsp;</div>
 </div>
-<body>
-
 
 <div class="sb-site-container">
     <div class="boxed">
@@ -375,5 +375,6 @@
 <script src="theme/js/DropdownHover.js"></script>
 <script src="theme/js/app.js"></script>
 <script src="theme/js/holder.js"></script>
+<jsp:invoke fragment="scripts"/>
 </body>
 </html>
