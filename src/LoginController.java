@@ -106,7 +106,8 @@ public class LoginController extends HttpServlet {
         // Setup dispatcher
         if (success) {
             // Redirect to referrer
-            dispatcher = getServletContext().getRequestDispatcher(referrer);
+            response.sendRedirect(referrer);
+            return;
         } else {
             // Reload Login with errors attached
             dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/jsp/login.jsp");
