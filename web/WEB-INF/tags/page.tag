@@ -68,7 +68,7 @@
                         <c:choose>
                             <c:when test='${loggedIn == true}'>
                                 <c:choose>
-                                    <c:when test='${user.getRole() == 1}'>
+                                    <c:when test='${user.isAdmin()}'>
                                         <li>
                                             <a href="/issues">
                                                 <i class="fa fa-fw fa-question"></i>

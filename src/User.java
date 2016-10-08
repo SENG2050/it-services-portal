@@ -2,6 +2,9 @@
  * Created by b8ne on 25/09/2016.
  */
 public class User {
+    public static final int ROLE_ADMIN = 1;
+    public static final int ROLE_USER = 2;
+
     private int userId;
     private String firstName;
     private String lastName;
@@ -78,5 +81,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isAdmin() {
+        return this.role == ROLE_ADMIN;
+    }
+
+    public boolean isUser() {
+        return this.role == ROLE_USER;
     }
 }
