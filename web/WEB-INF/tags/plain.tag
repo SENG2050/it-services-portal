@@ -1,6 +1,7 @@
 <%@tag description="Overall Page template" pageEncoding="UTF-8" %>
 <%@attribute name="title" fragment="true" %>
 <%@attribute name="scripts" fragment="true" %>
+<%@attribute name="styles" fragment="true" %>
 
 <html>
 <head>
@@ -14,6 +15,9 @@
     </title>
 
     <meta name="description" content="">
+
+    <!-- This can be changed to our Tomcat folder prefix at submission time -->
+    <base href="/">
 
     <!-- CSS -->
     <link href="theme/css/preload.css" rel="stylesheet">
@@ -29,8 +33,7 @@
     <script src="theme/js/respond.min.js"></script>
     <![endif]-->
 
-    <!-- This can be changed to our Tomcat folder prefix at submission time -->
-    <base href="/">
+    <jsp:invoke fragment="styles"/>
 </head>
 <body>
 <!-- Preloader -->

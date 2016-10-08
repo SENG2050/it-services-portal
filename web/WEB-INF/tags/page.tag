@@ -1,6 +1,7 @@
 <%@tag description="Overall Page template" pageEncoding="UTF-8" %>
 <%@attribute name="title" fragment="true" %>
 <%@attribute name="scripts" fragment="true" %>
+<%@attribute name="styles" fragment="true" %>
 <%@attribute name="breadcrumbs" fragment="true" %>
 
 <html>
@@ -10,7 +11,9 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <title><jsp:invoke fragment="title"/></title>
+    <title>
+        <jsp:invoke fragment="title"/>
+    </title>
 
     <meta name="description" content="">
 
@@ -30,6 +33,8 @@
     <script src="theme/js/html5shiv.min.js"></script>
     <script src="theme/js/respond.min.js"></script>
     <![endif]-->
+
+    <jsp:invoke fragment="styles"/>
 </head>
 <body>
 <!-- Preloader -->
@@ -54,13 +59,22 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="/kb">Knowledge Base</a>
+                            <a href="/kb">
+                                <i class="fa fa-fw fa-search"></i>
+                                Knowledge Base
+                            </a>
                         </li>
                         <li>
-                            <a href="/issues">Issues</a>
+                            <a href="/issues">
+                                <i class="fa fa-fw fa-question"></i>
+                                Issues
+                            </a>
                         </li>
                         <li>
-                            <a href="/issues/new">New Issue</a>
+                            <a href="/issues/new">
+                                <i class="fa fa-fw fa-plus"></i>
+                                New Issue
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -69,7 +83,9 @@
 
         <header class="main-header">
             <div class="container">
-                <h1 class="page-title"><jsp:invoke fragment="title"/></h1>
+                <h1 class="page-title">
+                    <jsp:invoke fragment="title"/>
+                </h1>
 
                 <jsp:invoke fragment="breadcrumbs"/>
             </div>

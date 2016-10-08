@@ -2,6 +2,7 @@
 <project version="4">
   <component name="dataSourceStorageLocal">
     <data-source name="MySQL - seng2050a3_java@seng2050.bensutter.net" uuid="f5887fd5-b9d5-47dd-8ffd-958f24fc6a9f">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" />
       <secret-storage>master_key</secret-storage>
       <user-name>seng2050</user-name>
       <introspection-scope>seng2050a3_java:</introspection-scope>
