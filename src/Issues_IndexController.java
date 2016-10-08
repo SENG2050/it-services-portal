@@ -13,21 +13,33 @@ public class Issues_IndexController extends BaseController {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         super.doGet(request, response);
 
-        ArrayList<Issue> issues = this.generateDummyData();
+        if (this.isLoggedIn()) {
+            if (this.getUser().getRole() == 1) {
 
-        request.setAttribute("users", this.getPortalBean().getUsers().getUsers());
-        request.setAttribute("issues", issues);
+                ArrayList<Issue> issues = this.generateDummyData();
 
-        String column = request.getParameter("column");
-        request.setAttribute("column", column);
+                request.setAttribute("users", this.getPortalBean().getUsers().getUsers());
+                request.setAttribute("issues", issues);
 
-        if (column != null) {
-            String[] split = column.split("|");
+                String column = request.getParameter("column");
+                request.setAttribute("column", column);
 
-            String sortBy = split[0];
-            String direction = split[1];
+//                if (column != null) {
+//                    String[] split = column.split("|");
+//
+//                    String sortBy = split[0];
+//                    String direction = split[1];
+//                }
+            } else {
+
+                response.sendRedirect("/");
+                return;
+            }
         }
-
+        else {
+            response.sendRedirect("/login");
+            return;
+        }
         request.getRequestDispatcher("/WEB-INF/jsp/issues/index.jsp").forward(request, response);
     }
 }
