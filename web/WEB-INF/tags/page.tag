@@ -1,4 +1,5 @@
 <%@tag description="Overall Page template" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@attribute name="title" fragment="true" %>
 <%@attribute name="scripts" fragment="true" %>
 <%@attribute name="styles" fragment="true" %>
@@ -64,18 +65,50 @@
                                 Knowledge Base
                             </a>
                         </li>
-                        <li>
-                            <a href="/issues">
-                                <i class="fa fa-fw fa-question"></i>
-                                Issues
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/issues/new">
-                                <i class="fa fa-fw fa-plus"></i>
-                                New Issue
-                            </a>
-                        </li>
+                        <c:choose>
+                            <c:when test='${loggedIn == true}'>
+                                <c:choose>
+                                    <c:when test='${user.getRole() == 1}'>
+                                        <li>
+                                            <a href="/issues">
+                                                <i class="fa fa-fw fa-question"></i>
+                                                Issues
+                                            </a>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li>
+                                            <a href="/issues/new">
+                                                <i class="fa fa-fw fa-plus"></i>
+                                                New Issue
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
+
+                                <li>
+                                    <a href="/logout">
+                                        <i class="fa fa-fw fa-sign-out"></i>
+                                        Logout
+                                    </a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li>
+                                    <a href="/issues/new">
+                                        <i class="fa fa-fw fa-plus"></i>
+                                        New Issue
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="/login">
+                                        <i class="fa fa-fw fa-sign-in"></i>
+                                        Login
+                                    </a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
                     </ul>
                 </div>
             </div>

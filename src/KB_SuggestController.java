@@ -10,8 +10,8 @@ import javax.json.JsonArrayBuilder;
 /**
  * Searches all KB articles for the given term and returns them in a JSON structure
  */
-public class KB_SuggestController extends HttpServlet {
+public class KB_SuggestController extends BaseController {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        super.doGet(request, response);
     }
 }

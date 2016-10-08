@@ -6,37 +6,31 @@ import javax.naming.InitialContext;
 
 /**
  * PortalBean.java
- *
+ * <p>
  * Main portal bean to encapsulate session and provide view data
  */
 public class PortalBean {
-    private User user;
-
-    public User_DBWrapper userDBWrapper;
-    public Issue_DBWrapper issueDbWrapper;
-
+    public User_DBWrapper users;
+    public Issue_DBWrapper issues;
 
     public PortalBean() {
-        this.user = null;
-        this.userDBWrapper = new User_DBWrapper();
-        this.issueDbWrapper = new Issue_DBWrapper();
+        this.users = new User_DBWrapper();
+        this.issues = new Issue_DBWrapper();
     }
 
-    /**
-     * getUser
-     * getter function
-     * @return
-     */
-    public User getUser() {
-        return user;
+    public User_DBWrapper getUsers() {
+        return users;
     }
 
-    /**
-     * setUser
-     * setter function
-     * @param user
-     */
-    public void setUser(User user) {
-        this.user = user;
+    public void setUsers(User_DBWrapper users) {
+        this.users = users;
+    }
+
+    public Issue_DBWrapper getIssues() {
+        return issues;
+    }
+
+    public void setIssues(Issue_DBWrapper issues) {
+        this.issues = issues;
     }
 }

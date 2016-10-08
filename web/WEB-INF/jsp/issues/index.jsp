@@ -15,6 +15,25 @@
         </ol>
     </jsp:attribute>
     <jsp:body>
+        <c:forEach items="${users}" var="user">
+            <dl>
+                <dt>ID</dt>
+                <dd>${user.getUserId()}</dd>
+                <dt>First Name</dt>
+                <dd>${user.getFirstName()}</dd>
+                <dt>Last Name</dt>
+                <dd>${user.getLastName()}</dd>
+                <dt>Email</dt>
+                <dd>${user.getEmail()}</dd>
+                <dt>Phone</dt>
+                <dd>${user.getPhone()}</dd>
+                <dt>Password</dt>
+                <dd>${user.getPassword()}</dd>
+                <dt>Role</dt>
+                <dd>${user.getRole()}</dd>
+            </dl>
+        </c:forEach>
+
         <div class="panel panel-border">
             <div class="panel-body">
                 <form method="get" action="/issues/search" class="m-b-none">

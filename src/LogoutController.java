@@ -6,15 +6,19 @@ import java.io.IOException;
 
 /**
  * LogoutController
- *
+ * <p>
  * Handles user logout
- *
+ * <p>
  * Author: Ben Sutter
  * Updated: 5/10/16
  */
-public class LogoutController extends HttpServlet {
+public class LogoutController extends BaseController {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getSession().setAttribute("PortalBean", null);
+        super.doGet(request, response);
+
+        this.setUser(null);
+        this.setLoggedIn(false);
+
         response.sendRedirect("/");
     }
 }

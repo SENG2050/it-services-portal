@@ -1,111 +1,77 @@
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * User_DBWrapper
- *
+ * <p>
  * Extends DBWrapper to handle User specific requests
- *
+ * <p>
  * Author: Ben Sutter
  * Updated: 5/10/16
  */
 public class User_DBWrapper extends DBWrapper {
-    private List<User> list;
-
     public User_DBWrapper() {
-        this.tableName = "users";
-        this.list = new LinkedList<>();
+        this.setTableName("users");
     }
-
-    /******************************************************************/
-    /** Accessors
-    /******************************************************************/
 
     /**
      * getUsers()
-     *
      * Returns a list of all users in database
      *
-     * @return
+     * @return User[]
      */
-    public List<User> getUsers () {
-        List<User> list = new LinkedList<>();
-        try {
-            ResultSet rs = this.getAll();
-            if (rs != null) {
-                convertResult(rs);
-            }
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
-        }
-        return list;
+    public User[] getUsers() {
+        List<Object> data = this.getAll();
+
+        return (User[]) data.toArray(new User[data.size()]);
     }
 
     /**
-     * getUserById()
+     * getById()
+     * Returns the user with a matching id
      *
-     * Implements super getById to retrieve user model by id
-     *
-     * @param id
-     * @return
+     * @param id int
+     * @return User
      */
-    public List<User> getUserById (int id) {
-        try {
-            ResultSet rs = this.getById(id);
-            if (rs != null) {
-                convertResult(rs);
-            }
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
-        }
-        return list;
+    public User getById(int id) {
+        return User.class.cast(this.getOneBy("id", id));
     }
 
     /**
-     * getUserByEmail()
+     * getByEmail()
+     * Returns the user with a matching email
      *
-     * Gets user based on email param
-     *
-     * @param email
-     * @return
+     * @param email String
+     * @return User
      */
-    public List<User> getUserByEmail (String email) {
-        try {
-            ResultSet rs = this.getByStringParam("email", email);
-            if (rs != null) {
-                convertResult(rs);
-            }
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
-        }
-        return list;
+    public User getByEmail(String email) {
+        return User.class.cast(this.getOneBy("email", email));
     }
 
     /**
-     * convertResult()
+     * mapRowToObject()
+     * Maps a row to a User
      *
-     * Private helper function to convert Result set to User List
-     *
-     * @param rs
+     * @param rs ResultSet
+     * @return User
      */
-    private void convertResult(ResultSet rs) {
+    protected User mapRowToObject(ResultSet rs) {
         try {
-            list.clear();
-            while (rs.next()) {
-                User user = new User(
-                        rs.getInt("id"),
-                        rs.getString("firstName"),
-                        rs.getString("lastName"),
-                        rs.getInt("role"),
-                        rs.getString("phoneNumber"),
-                        rs.getString("email"),
-                        rs.getString("password")
-                );
-                list.add(user);
-            }
+            return new User(
+                    rs.getInt("id"),
+                    rs.getString("firstName"),
+                    rs.getString("lastName"),
+                    rs.getInt("role"),
+                    rs.getString("phoneNumber"),
+                    rs.getString("email"),
+                    rs.getString("password")
+            );
         } catch (Exception ex) {
             System.out.println(ex.toString());
+
+            return null;
         }
     }
 }

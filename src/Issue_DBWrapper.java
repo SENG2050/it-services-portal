@@ -4,141 +4,88 @@ import java.util.List;
 
 /**
  * Issue_DBWrapper
- *
  * Extends DBWrapper to handle Issue specific requests
- *
  * Author: Ben Sutter
  * Updated: 5/10/16
  */
 public class Issue_DBWrapper extends DBWrapper {
-    private List<Issue> list;
-
     public Issue_DBWrapper() {
-        this.tableName = "issues";
-        this.list = new LinkedList<>();
+        this.setTableName("issues");
     }
-
-    /******************************************************************/
-    /** Accessors
-    /******************************************************************/
 
     /**
      * getIssues()
-     *
      * Returns a list of all issues in database
      *
-     * @return
+     * @return Issue[]
      */
-    public List<Issue> getIssues () {
-        try {
-            ResultSet rs = this.getAll();
-            if (rs != null) {
-                convertResult(rs);
-            }
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
-        }
-        return list;
+    public Issue[] getIssues() {
+        List<Object> data = this.getAll();
+
+        return (Issue[]) data.toArray(new Issue[data.size()]);
     }
 
     /**
-     * getIssueById()
+     * getById()
+     * Returns the status with a matching id
      *
-     * Implements super getById to retrieve user model by id
-     *
-     * @param id
-     * @return
+     * @param id int
+     * @return Issue
      */
-    public List<Issue> getIssueById (int id) {
-        try {
-            ResultSet rs = this.getById(id);
-            if (rs != null) {
-                convertResult(rs);
-            }
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
-        }
-        return list;
+    public Issue getById(int id) {
+        return Issue.class.cast(this.getOneBy("id", id));
     }
 
     /**
-     * getIssueByCategory()
+     * getIssuesByCategory()
+     * Returns the issues with a matching category
      *
-     * Gets all issues that belong to given category
-     *
-     * @param catId
-     * @return
+     * @param category String
+     * @return Issue[]
      */
-    public List<Issue> getIssueByCategory(int catId) {
-        try {
-            ResultSet rs = this.getByIntParam("category", catId);
-            if (rs != null) {
-                convertResult(rs);
-            }
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
-        }
-        return list;
+    public Issue[] getIssuesByCategory(String category) {
+        List<Object> data = this.getManyBy("category", category);
+
+        return (Issue[]) data.toArray(new Issue[data.size()]);
     }
 
     /**
-     * getIssueByStatus()
+     * getIssuesByStatus()
+     * Returns the issues with a matching status
      *
-     * Gets all issues that have a given status
-     *
-     * @param status
-     * @return
+     * @param status String
+     * @return Issue[]
      */
-    public List<Issue> getIssueByStatus(int status) {
-        try {
-            ResultSet rs = this.getByIntParam("status", status);
-            if (rs != null) {
-                convertResult(rs);
-            }
-        } catch (Exception ex) {
-            System.out.println(ex.toString());
-        }
-        return list;
+    public Issue[] getIssuesByStatus(String status) {
+        List<Object> data = this.getManyBy("status", status);
+
+        return (Issue[]) data.toArray(new Issue[data.size()]);
     }
 
     /**
+     * mapRowToObject()
+     * Maps a row to a Issue
      *
+     * @param rs ResultSet
+     * @return Issue
      */
-    public void test(){
-        
-    }
-
-
-    /******************************************************************/
-    /** Mutators
-     /******************************************************************/
-
-    /**
-     * convertResult()
-     *
-     * Private helper function to convert Result set to User List
-     *
-     * @param rs
-     */
-    private void convertResult(ResultSet rs) {
+    protected Issue mapRowToObject(ResultSet rs) {
         try {
-            list.clear();
-            while (rs.next()) {
-                Issue issue = new Issue(
-                        rs.getInt("id"),
-                        rs.getString("title"),
-                        rs.getString("descriptions"),
-                        rs.getString("resolution"),
-                        rs.getInt("category"),
-                        rs.getInt("userId"),
-                        rs.getInt("status"),
-                        rs.getDate("created"),
-                        rs.getDate("resolved")
-                );
-                list.add(issue);
-            }
+            return new Issue(
+                    rs.getInt("id"),
+                    rs.getString("title"),
+                    rs.getString("descriptions"),
+                    rs.getString("resolution"),
+                    rs.getInt("category"),
+                    rs.getInt("userId"),
+                    rs.getInt("status"),
+                    rs.getDate("created"),
+                    rs.getDate("resolved")
+            );
         } catch (Exception ex) {
             System.out.println(ex.toString());
+
+            return null;
         }
     }
 }
