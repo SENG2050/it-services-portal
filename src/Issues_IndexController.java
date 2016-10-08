@@ -14,7 +14,7 @@ public class Issues_IndexController extends BaseController {
         super.doGet(request, response);
 
         if (this.isLoggedIn()) {
-            if (this.getUser().getRole() == 1) {
+            if (this.getUser().isAdmin()) {
 
                 ArrayList<Issue> issues = this.generateDummyData();
 
