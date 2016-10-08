@@ -6,6 +6,6 @@
         Issues View Admin Page
     </jsp:attribute>
     <jsp:body>
-        <p>Issues View Admin Page</p>
+        ${issue.getTitle()}
     </jsp:body>
 </t:page>

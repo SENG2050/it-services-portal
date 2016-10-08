@@ -17,6 +17,7 @@ public class Issues_IndexController extends HttpServlet {
         ArrayList<Issue> issues = dummyData();
 
         request.setAttribute("issues", issues);
+        request.setAttribute("column", request.getParameter("column"));
 
         request.getRequestDispatcher("/WEB-INF/jsp/issues/index.jsp").forward(request, response);
     }
