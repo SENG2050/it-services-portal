@@ -17,8 +17,6 @@ public class KB_IndexController extends HttpServlet {
         // this will be a request variable
         ArrayList<Comment> testComments = dummyComments(request);
         request.setAttribute("comments", testComments);
-        //we already have issues session variable (from IssuesController) so you can combine it with testComments variable
-        // to display comments that are related to a specific issue.
 
         request.getRequestDispatcher("/WEB-INF/jsp/kb/index.jsp").forward(request, response);
     }

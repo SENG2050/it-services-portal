@@ -26,7 +26,7 @@
                         artificial<span>reason</span>
                     </div>
                     <div class="animated fadeInUp animation-delay-8">
-                        <form role="form" method="post">
+                        <form role="form" method="post" action="/login">
                             <div class="form-group">
                                 <div class="input-group login-input m-b">
                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
