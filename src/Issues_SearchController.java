@@ -25,7 +25,6 @@ public class Issues_SearchController extends HttpServlet {
         if(request.getParameter("term")!=null){
             request.setAttribute("term", request.getParameter("term"));
         }
-
         request.getRequestDispatcher("/WEB-INF/jsp/issues/search.jsp").forward(request, response);
     }
 
