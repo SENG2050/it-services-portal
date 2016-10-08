@@ -14,8 +14,17 @@ public class Issues_SearchController extends HttpServlet {
         ArrayList<Issue> issues = dummyData();
 
         request.setAttribute("issues", issues);
-        request.setAttribute("column", request.getParameter("column"));
-        request.setAttribute("term", request.getParameter("term"));
+        String column = request.getParameter("column");
+        if(column!=null){
+            request.setAttribute("column", column);
+
+            String[] paths = column.split("|");
+            request.setAttribute("colToOrder", paths[0]);
+            request.setAttribute("orderType", paths[1]);
+        }
+        if(request.getParameter("term")!=null){
+            request.setAttribute("term", request.getParameter("term"));
+        }
 
         request.getRequestDispatcher("/WEB-INF/jsp/issues/search.jsp").forward(request, response);
     }
