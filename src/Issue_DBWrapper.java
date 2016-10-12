@@ -1,6 +1,8 @@
 import java.sql.ResultSet;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Issue_DBWrapper
@@ -9,9 +11,15 @@ import java.util.List;
  * Updated: 5/10/16
  */
 public class Issue_DBWrapper extends DBWrapper {
+    private Issue issue;
+
     public Issue_DBWrapper() {
         this.setTableName("issues");
     }
+
+    //-----------
+    // Accessors
+    //-----------
 
     /**
      * getIssues()
@@ -32,7 +40,7 @@ public class Issue_DBWrapper extends DBWrapper {
      * @param id int
      * @return Issue
      */
-    public Issue getById(int id) {
+    public Issue getIssueById(int id) {
         return Issue.class.cast(this.getOneBy("id", id));
     }
 
@@ -62,6 +70,39 @@ public class Issue_DBWrapper extends DBWrapper {
         return (Issue[]) data.toArray(new Issue[data.size()]);
     }
 
+    //-----------
+    // Mutators
+    //-----------
+
+    /**
+     * Create a new issue
+     * @param issue
+     * @return
+     */
+    public boolean createNewIssue(Issue issue) {
+        this.issue = issue;
+        return this.insertRow();
+    }
+
+    /**
+     * Update and existing issue
+     * @param issue
+     * @return
+     */
+    public boolean updateIssue(Issue issue) {
+        this.issue = issue;
+        return this.updateRow(issue.getIssueId());
+    }
+
+    /**
+     * Delete an issue by id
+     * @param id
+     * @return
+     */
+    public boolean deleteIssue(int id) {
+        return this.delete(id);
+    }
+
     /**
      * mapRowToObject()
      * Maps a row to a Issue
@@ -74,7 +115,7 @@ public class Issue_DBWrapper extends DBWrapper {
             return new Issue(
                     rs.getInt("id"),
                     rs.getString("title"),
-                    rs.getString("descriptions"),
+                    rs.getString("description"),
                     rs.getString("resolution"),
                     rs.getInt("category"),
                     rs.getInt("userId"),
@@ -87,5 +128,42 @@ public class Issue_DBWrapper extends DBWrapper {
 
             return null;
         }
+    }
+
+    /**
+     * Maps an Issue to an SQL update statement
+     * @return
+     */
+    @Override
+    protected Map<String, String> mapObjectToUpdateValues() {
+        Map<String, String> values = new HashMap<>();
+         values.put("values", "title='" + this.issue.getTitle() + "', " +
+                "description='" + this.issue.getDescription() + "', " +
+                "resolution='" + this.issue.getResolution() + "', " +
+                "category=" + this.issue.getCategory() + ", " +
+                "userId=" + this.issue.getUserId() + ", " +
+                "status=" + this.issue.getStatus() + ", " +
+                "created='" + this.issue.getCreated() + "', " +
+                "resolved='" + this.issue.getResolved() + "'");
+        return values;
+    }
+
+    /**
+     * Maps an Issue to an SQL insert statement
+     * @return
+     */
+    @Override
+    protected Map<String, String> mapObjectToInsertValues() {
+        Map<String, String> values = new HashMap<>();
+        values.put("columns", "title, description, resolution, category, userId, status, created, resolved");
+        values.put("values", "'" + this.issue.getTitle() + "', " +
+                "'" + this.issue.getDescription() + "', " +
+                "'" + this.issue.getResolution() + "', " +
+                this.issue.getCategory() + ", " +
+                this.issue.getUserId() + ", " +
+                this.issue.getStatus() + ", " +
+                "'" + this.issue.getCreated() + "', " +
+                "'" + this.issue.getResolved() + "'");
+        return values;
     }
 }

@@ -63,22 +63,12 @@ public class BaseController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.setSession(request.getSession());
-        this.setUser((User) this.session.getAttribute("user"));
-        this.setLoggedIn(this.user != null);
-
-        request.setAttribute("user", this.getUser());
-        request.setAttribute("loggedIn", this.isLoggedIn());
+        this.getDefaultData(request);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.setSession(request.getSession());
-        this.setUser((User) this.session.getAttribute("user"));
-        this.setLoggedIn(this.user != null);
-
-        request.setAttribute("user", this.getUser());
-        request.setAttribute("loggedIn", this.isLoggedIn());
+        this.getDefaultData(request);
     }
 
     protected ArrayList<Issue> generateDummyData() {
@@ -120,5 +110,18 @@ public class BaseController extends HttpServlet {
         }
 
         return testData;
+    }
+
+    /**
+     * Helper function to populate request with needed info
+     * @param request
+     */
+    private void getDefaultData(HttpServletRequest request) {
+        this.setSession(request.getSession());
+        this.setUser((User) this.session.getAttribute("user"));
+        this.setLoggedIn(this.user != null);
+
+        request.setAttribute("user", this.getUser());
+        request.setAttribute("loggedIn", this.isLoggedIn());
     }
 }

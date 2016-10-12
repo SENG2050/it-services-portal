@@ -167,8 +167,8 @@ public class DBWrapper {
      */
     public List<Object> getAll() {
         this.reset();
-
-        return this.mapResultToObjects(this.getResult());
+        ResultSet rs = this.getResult();
+        return this.mapResultToObjects(rs);
     }
 
     /**
@@ -286,6 +286,12 @@ public class DBWrapper {
         }
     }
 
+
+
+    //---------
+    // Helpers
+    //---------
+
     /**
      * mapRowToObject
      * Maps a row to an object
@@ -298,9 +304,17 @@ public class DBWrapper {
         return new Object();
     }
 
-    //---------
-    // Helpers
-    //---------
+    /**
+     * Maps an object to an SQL insert statement
+     * @return
+     */
+    protected Map<String, String> mapObjectToInsertValues() { return new HashMap<>(); }
+
+    /**
+     * Maps an object to an SQL update statement
+     * @return
+     */
+    protected Map<String, String> mapObjectToUpdateValues() { return new HashMap<>(); }
 
     /**
      * addWhere()
@@ -324,18 +338,16 @@ public class DBWrapper {
         this.getSort().put(column, direction);
     }
 
-    /******************************************************************/
-    /** Mutators
-     /******************************************************************/
+    //-----------
+    // Mutators
+    //-----------
 
     /**
-     * insert_update()
-     * Performs generic Update statement
+     * Inserts a row in the database
      *
-     * @param s PreparedStatement
      * @return boolean
      */
-    protected boolean insert_update(PreparedStatement s) {
+    protected boolean insertRow() {
         // Open connection if not already opened
         if (connection == null) {
             open();
@@ -343,6 +355,36 @@ public class DBWrapper {
 
         // Perform statement
         try {
+            String query = "INSERT INTO " + this.getTableName() +
+                    "(" + this.mapObjectToInsertValues().get("columns") + ") " +
+                    "VALUES (" +
+                    this.mapObjectToInsertValues().get("values") + ");";
+            PreparedStatement s = connection.prepareStatement(query);
+            int result = s.executeUpdate();
+            if (result == 1) {
+                return true;
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        }
+        return false;
+    }
+
+    /**
+     * Updates a row in the database based on Id
+     * @return boolean
+     */
+    protected boolean updateRow(int id) {
+        // Open connection if not already opened
+        if (connection == null) {
+            open();
+        }
+
+        // Perform statement
+        try {
+            String query = "UPDATE " + this.getTableName() + " SET " +
+                    this.mapObjectToUpdateValues().get("values") + " WHERE ID=" + id + ";";
+            PreparedStatement s = connection.prepareStatement(query);
             int result = s.executeUpdate();
             if (result == 1) {
                 return true;
