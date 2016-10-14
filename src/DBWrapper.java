@@ -379,7 +379,7 @@ public class DBWrapper {
         this.getSort().put(column, direction);
     }
 
-    
+
     //-----------
     // Mutators
     //-----------
