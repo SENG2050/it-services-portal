@@ -1,11 +1,8 @@
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.*;
-import java.util.Date;
 
 /**
  * Displays all knowledge base (KB) articles and a search bar
@@ -14,7 +11,11 @@ public class KB_IndexController extends BaseController {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         super.doGet(request, response);
 
-        ArrayList<Issue> issues = this.generateDummyData();
+        Issue_DBWrapper issueWrapper = this.getPortalBean().getIssues();
+
+        issueWrapper.reset();
+
+        List<Issue> issues = Arrays.asList(issueWrapper.getIssues());
 
         request.setAttribute("issues", issues);
 

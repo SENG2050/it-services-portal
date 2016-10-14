@@ -104,6 +104,18 @@ public class Issue_DBWrapper extends DBWrapper {
     }
 
     /**
+     * runQuery()
+     * Returns the queried results
+     *
+     * @return Issue[]
+     */
+    public Issue[] runQuery() {
+        List<Object> data = this.run();
+
+        return (Issue[]) data.toArray(new Issue[data.size()]);
+    }
+
+    /**
      * mapRowToObject()
      * Maps a row to a Issue
      *

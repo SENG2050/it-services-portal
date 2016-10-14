@@ -5,6 +5,7 @@
 <%@attribute name="styles" fragment="true" %>
 <%@attribute name="breadcrumbs" fragment="true" %>
 
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -54,7 +55,7 @@
                         <span class="sr-only">Toggle navigation</span>
                         <i class="fa fa-bars"></i>
                     </button>
-                    <a id="ar-brand" class="navbar-brand" href="/">Artificial <span>Reason</span></a>
+                    <a id="ar-brand" class="navbar-brand" href="/">IT Services Portal</a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -139,10 +140,10 @@
 <script src="theme/js/syntaxhighlighter/shCore.js"></script>
 <script src="theme/js/syntaxhighlighter/shBrushXml.js"></script>
 <script src="theme/js/syntaxhighlighter/shBrushJScript.js"></script>
-
 <script src="theme/js/DropdownHover.js"></script>
 <script src="theme/js/app.js"></script>
 <script src="theme/js/holder.js"></script>
+<script src="js/it-services-portal.js"></script>
 <jsp:invoke fragment="scripts"/>
 </body>
 </html>

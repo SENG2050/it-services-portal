@@ -51,6 +51,18 @@ public class User_DBWrapper extends DBWrapper {
     }
 
     /**
+     * runQuery()
+     * Returns the queried results
+     *
+     * @return User[]
+     */
+    public User[] runQuery() {
+        List<Object> data = this.run();
+
+        return (User[]) data.toArray(new User[data.size()]);
+    }
+
+    /**
      * mapRowToObject()
      * Maps a row to a User
      *

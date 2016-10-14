@@ -41,13 +41,13 @@
                         ID
                         <span class="pull-right">
                             <c:choose>
-                                <c:when test='${column == "id|asc"}'>
-                                    <button type="submit" class="btn btn-link" name="column" value="id|desc">
+                                <c:when test='${column == "id|ASC"}'>
+                                    <button type="submit" class="btn btn-link" name="column" value="id|DESC">
                                         <i class="fa fa-fw fa-sort"></i>
                                     </button>
                                 </c:when>
                                 <c:otherwise>
-                                    <button type="submit" class="btn btn-link" name="column" value="id|asc">
+                                    <button type="submit" class="btn btn-link" name="column" value="id|ASC">
                                         <i class="fa fa-fw fa-sort"></i>
                                     </button>
                                 </c:otherwise>
@@ -58,13 +58,13 @@
                         User
                         <span class="pull-right">
                             <c:choose>
-                                <c:when test='${column == "user|asc"}'>
-                                    <button type="submit" class="btn btn-link" name="column" value="user|desc">
+                                <c:when test='${column == "userId|ASC"}'>
+                                    <button type="submit" class="btn btn-link" name="column" value="userId|DESC">
                                         <i class="fa fa-fw fa-sort"></i>
                                     </button>
                                 </c:when>
                                 <c:otherwise>
-                                    <button type="submit" class="btn btn-link" name="column" value="user|asc">
+                                    <button type="submit" class="btn btn-link" name="column" value="userId|ASC">
                                         <i class="fa fa-fw fa-sort"></i>
                                     </button>
                                 </c:otherwise>
@@ -75,13 +75,13 @@
                         Status
                         <span class="pull-right">
                             <c:choose>
-                                <c:when test='${column == "status|asc"}'>
-                                    <button type="submit" class="btn btn-link" name="column" value="status|desc">
+                                <c:when test='${column == "status|ASC"}'>
+                                    <button type="submit" class="btn btn-link" name="column" value="status|DESC">
                                         <i class="fa fa-fw fa-sort"></i>
                                     </button>
                                 </c:when>
                                 <c:otherwise>
-                                    <button type="submit" class="btn btn-link" name="column" value="status|asc">
+                                    <button type="submit" class="btn btn-link" name="column" value="status|ASC">
                                         <i class="fa fa-fw fa-sort"></i>
                                     </button>
                                 </c:otherwise>
@@ -92,13 +92,13 @@
                         Title
                         <span class="pull-right">
                             <c:choose>
-                                <c:when test='${column == "title|asc"}'>
-                                    <button type="submit" class="btn btn-link" name="column" value="title|desc">
+                                <c:when test='${column == "title|ASC"}'>
+                                    <button type="submit" class="btn btn-link" name="column" value="title|DESC">
                                         <i class="fa fa-fw fa-sort"></i>
                                     </button>
                                 </c:when>
                                 <c:otherwise>
-                                    <button type="submit" class="btn btn-link" name="column" value="title|asc">
+                                    <button type="submit" class="btn btn-link" name="column" value="title|ASC">
                                         <i class="fa fa-fw fa-sort"></i>
                                     </button>
                                 </c:otherwise>
@@ -109,13 +109,13 @@
                         Time Created
                         <span class="pull-right">
                             <c:choose>
-                                <c:when test='${column == "time-created|asc"}'>
-                                    <button type="submit" class="btn btn-link" name="column" value="time-created|desc">
+                                <c:when test='${column == "created|ASC"}'>
+                                    <button type="submit" class="btn btn-link" name="column" value="created|DESC">
                                         <i class="fa fa-fw fa-sort"></i>
                                     </button>
                                 </c:when>
                                 <c:otherwise>
-                                    <button type="submit" class="btn btn-link" name="column" value="time-created|asc">
+                                    <button type="submit" class="btn btn-link" name="column" value="created|ASC">
                                         <i class="fa fa-fw fa-sort"></i>
                                     </button>
                                 </c:otherwise>
