@@ -5,6 +5,7 @@
 <%@attribute name="styles" fragment="true" %>
 <%@attribute name="breadcrumbs" fragment="true" %>
 
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -139,10 +140,10 @@
 <script src="theme/js/syntaxhighlighter/shCore.js"></script>
 <script src="theme/js/syntaxhighlighter/shBrushXml.js"></script>
 <script src="theme/js/syntaxhighlighter/shBrushJScript.js"></script>
-
 <script src="theme/js/DropdownHover.js"></script>
 <script src="theme/js/app.js"></script>
 <script src="theme/js/holder.js"></script>
+<script src="js/it-services-portal.js"></script>
 <jsp:invoke fragment="scripts"/>
 </body>
 </html>
