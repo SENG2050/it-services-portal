@@ -54,7 +54,7 @@
                         <span class="sr-only">Toggle navigation</span>
                         <i class="fa fa-bars"></i>
                     </button>
-                    <a id="ar-brand" class="navbar-brand" href="/">Artificial <span>Reason</span></a>
+                    <a id="ar-brand" class="navbar-brand" href="/">IT Services Portal</a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
