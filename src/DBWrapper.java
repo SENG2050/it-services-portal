@@ -26,8 +26,13 @@ public class DBWrapper {
     private String tableName;
     private Map<String, String> where;
     private Map<String, String> sort;
+    private Map<String, String> like;
     private int limit;
     private int offset;
+
+    public DBWrapper() {
+        this.reset();
+    }
 
     public static Connection getConnection() {
         return connection;
@@ -59,6 +64,14 @@ public class DBWrapper {
 
     public void setSort(Map<String, String> sort) {
         this.sort = sort;
+    }
+
+    public Map<String, String> getLike() {
+        return like;
+    }
+
+    public void setLike(Map<String, String> like) {
+        this.like = like;
     }
 
     public int getLimit() {
@@ -122,6 +135,7 @@ public class DBWrapper {
     public void reset() {
         this.setWhere(new HashMap<String, String>());
         this.setSort(new HashMap<String, String>());
+        this.setLike(new HashMap<String, String>());
         this.setLimit(0);
         this.setOffset(0);
     }
@@ -172,6 +186,16 @@ public class DBWrapper {
     }
 
     /**
+     * run()
+     * Retrieves all entries from the database
+     *
+     * @return List<Object>
+     */
+    protected List<Object> run() {
+        return this.mapResultToObjects(this.getResult());
+    }
+
+    /**
      * getResult()
      * Generic gets all values by a parameter
      *
@@ -187,16 +211,26 @@ public class DBWrapper {
         try {
             String query = "SELECT * FROM " + this.getTableName();
 
+            StringJoiner andJoiner = new StringJoiner(" AND ");
+
             if (this.getWhere() != null && this.getWhere().size() > 0) {
-                query += " WHERE ";
-
-                StringJoiner joiner = new StringJoiner(", ");
-
                 for (String column : this.getWhere().keySet()) {
-                    joiner.add("`" + column + "` = ?");
+                    andJoiner.add("`" + column + "` = ?");
+                }
+            }
+
+            if (this.getLike() != null && this.getLike().size() > 0) {
+                StringJoiner orJoiner = new StringJoiner(" OR ");
+
+                for (String column : this.getLike().keySet()) {
+                    orJoiner.add("`" + column + "` LIKE ?");
                 }
 
-                query += joiner.toString();
+                andJoiner.add("(" + orJoiner.toString() + ")");
+            }
+
+            if (andJoiner.length() > 0) {
+                query += " WHERE " + andJoiner.toString();
             }
 
             if (this.getSort() != null && this.getSort().size() > 0) {
@@ -220,13 +254,21 @@ public class DBWrapper {
 
             PreparedStatement s = connection.prepareStatement(query);
 
-            if (this.getWhere() != null && this.getWhere().size() > 0) {
-                int index = 1;
+            int index = 1;
 
+            if (this.getWhere() != null && this.getWhere().size() > 0) {
                 for (String column : this.getWhere().keySet()) {
                     s.setObject(index++, this.getWhere().get(column));
                 }
             }
+
+            if (this.getLike() != null && this.getLike().size() > 0) {
+                for (String column : this.getLike().keySet()) {
+                    s.setObject(index++, "%" + this.getLike().get(column) + "%");
+                }
+            }
+
+            System.out.println(s.toString());
 
             return s.executeQuery();
         } catch (Exception ex) {
@@ -293,8 +335,7 @@ public class DBWrapper {
      * @param resultSet ResultSet
      * @return Object
      */
-    protected Object mapRowToObject(ResultSet resultSet)
-    {
+    protected Object mapRowToObject(ResultSet resultSet) {
         return new Object();
     }
 
@@ -322,6 +363,17 @@ public class DBWrapper {
      */
     public <V> void addSort(String column, String direction) {
         this.getSort().put(column, direction);
+    }
+
+    /**
+     * addLike()
+     * Generic gets all values by a parameter
+     *
+     * @param column String
+     * @param term   String
+     */
+    public <V> void addLike(String column, String term) {
+        this.getLike().put(column, term);
     }
 
     /******************************************************************/

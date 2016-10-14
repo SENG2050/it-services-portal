@@ -1,10 +1,9 @@
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
+import java.util.Arrays;
 
 /**
  * Shows the admin a list of all issues
@@ -15,32 +14,31 @@ public class Issues_IndexController extends BaseController {
 
         if (this.isLoggedIn()) {
             if (this.getUser().isAdmin()) {
-
-                ArrayList<Issue> issues = this.generateDummyData();
-
-                request.setAttribute("users", this.getPortalBean().getUsers().getUsers());
-                request.setAttribute("issues", issues);
+                Issue_DBWrapper issueWrapper = this.getPortalBean().getIssues();
 
                 String column = request.getParameter("column");
                 request.setAttribute("column", column);
 
-//                if (column != null) {
-//                    String[] split = column.split("|");
-//
-//                    String sortBy = split[0];
-//                    String direction = split[1];
-//                }
-            } else {
+                if (column != null) {
+                    String[] split = column.split("\\|");
 
+                    String sortBy = split[0];
+                    String direction = split[1];
+
+                    issueWrapper.addSort(sortBy, direction);
+                }
+
+                List<Issue> issues = Arrays.asList(issueWrapper.runQuery());
+
+                request.setAttribute("issues", issues);
+
+                request.getRequestDispatcher("/WEB-INF/jsp/issues/index.jsp").forward(request, response);
+            } else {
                 response.sendRedirect("/");
-                return;
             }
-        }
-        else {
+        } else {
             response.sendRedirect("/login");
-            return;
         }
-        request.getRequestDispatcher("/WEB-INF/jsp/issues/index.jsp").forward(request, response);
     }
 }
 
