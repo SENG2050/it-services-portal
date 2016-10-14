@@ -16,6 +16,8 @@ public class Issues_IndexController extends BaseController {
             if (this.getUser().isAdmin()) {
                 Issue_DBWrapper issueWrapper = this.getPortalBean().getIssues();
 
+                issueWrapper.reset();
+
                 String column = request.getParameter("column");
                 request.setAttribute("column", column);
 

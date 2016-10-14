@@ -14,6 +14,8 @@ public class Issues_SearchController extends BaseController {
 
         Issue_DBWrapper issueWrapper = this.getPortalBean().getIssues();
 
+        issueWrapper.reset();
+
         String term = request.getParameter("term");
         request.setAttribute("term", term);
 

@@ -13,6 +13,8 @@ public class KB_IndexController extends BaseController {
 
         Issue_DBWrapper issueWrapper = this.getPortalBean().getIssues();
 
+        issueWrapper.reset();
+
         List<Issue> issues = Arrays.asList(issueWrapper.getIssues());
 
         request.setAttribute("issues", issues);
