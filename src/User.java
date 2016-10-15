@@ -124,6 +124,7 @@ public class User {
         return this.getRole().getTitle().equals("User");
     }
 
+    // http://stackoverflow.com/a/6565597
     public String getEmailHash() throws NoSuchAlgorithmException, UnsupportedEncodingException {
         MessageDigest md5 = MessageDigest.getInstance("MD5");
 

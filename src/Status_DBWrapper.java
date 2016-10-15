@@ -21,7 +21,7 @@ public class Status_DBWrapper extends DBWrapper {
      * getStatuses()
      * Returns a list of all Status in database
      *
-     * @return Category[]
+     * @return Status[]
      */
     public Status[] getStatuses() {
         List<Object> data = this.getAll();
@@ -34,11 +34,21 @@ public class Status_DBWrapper extends DBWrapper {
      * Returns the status by specific id
      *
      * @param id int
-     * @return Role
+     * @return Status
      */
     public Status getStatusById(int id) {
-
         return Status.class.cast(this.getOneBy("id", id));
+    }
+
+    /**
+     * getStatusByTitle()
+     * Returns the status by specific title
+     *
+     * @param title String
+     * @return Status
+     */
+    public Status getStatusByTitle(String title) {
+        return Status.class.cast(this.getOneBy("title", title));
     }
 
     /**

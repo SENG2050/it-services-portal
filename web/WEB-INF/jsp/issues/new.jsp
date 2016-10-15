@@ -42,7 +42,8 @@
 
                 <div class="col-sm-10">
                     <textarea class="form-control" rows="5" name="description" required="required"
-                              id="description" placeholder="Type your issue here...">${description}</textarea>
+                              id="description" placeholder="Type your issue here..."
+                              onkeyup="IssuesNew.relatedArticles();">${description}</textarea>
 
                     <span class="help-block">Please be as descriptive as possible to get the best possible response.</span>
                 </div>
@@ -56,5 +57,7 @@
                 </div>
             </div>
         </form>
+
+        <iframe class="full-width" frameborder="0" scrolling="no" id="related-articles" onload="resizeIframe(this);"></iframe>
     </jsp:body>
 </t:page>

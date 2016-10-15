@@ -345,3 +345,7 @@
 .table > thead > tr > th.table-middle {
     vertical-align: middle
 }
+
+.full-width {
+    width: 100%;
+}
