@@ -123,7 +123,7 @@ public class BaseController extends HttpServlet {
 
         // User has a notification/issue has been updated
         // @TODO: Alter notification text
-        if (this.user.hasNotification()) {
+        if (this.user != null && this.user.hasNotification()) {
             request.setAttribute("notification", "Has Notification.");
         }
 
