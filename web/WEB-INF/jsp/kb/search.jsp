@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <t:page>
     <jsp:attribute name="title">
@@ -60,68 +61,23 @@
             <table class="table table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>
-                        ID
-                        <span class="pull-right">
-                            <c:choose>
-                                <c:when test='${column == "id|asc"}'>
-                                    <button type="submit" class="btn btn-link" name="column" value="id|desc">
-                                        <i class="fa fa-fw fa-sort"></i>
-                                    </button>
-                                </c:when>
-                                <c:otherwise>
-                                    <button type="submit" class="btn btn-link" name="column" value="id|asc">
-                                        <i class="fa fa-fw fa-sort"></i>
-                                    </button>
-                                </c:otherwise>
-                            </c:choose>
-                        </span>
+                    <th class="table-middle">
+                        Article Title
                     </th>
-                    <th>
-                        Title
-                        <span class="pull-right">
-                            <c:choose>
-                                <c:when test='${column == "title|asc"}'>
-                                    <button type="submit" class="btn btn-link" name="column" value="title|desc">
-                                        <i class="fa fa-fw fa-sort"></i>
-                                    </button>
-                                </c:when>
-                                <c:otherwise>
-                                    <button type="submit" class="btn btn-link" name="column" value="title|asc">
-                                        <i class="fa fa-fw fa-sort"></i>
-                                    </button>
-                                </c:otherwise>
-                            </c:choose>
-                        </span>
-                    </th>
-                    <th>
+                    <th class="table-middle">
                         Category
-                        <span class="pull-right">
-                            <c:choose>
-                                <c:when test='${column == "category|asc"}'>
-                                    <button type="submit" class="btn btn-link" name="column" value="category|desc">
-                                        <i class="fa fa-fw fa-sort"></i>
-                                    </button>
-                                </c:when>
-                                <c:otherwise>
-                                    <button type="submit" class="btn btn-link" name="column" value="category|asc">
-                                        <i class="fa fa-fw fa-sort"></i>
-                                    </button>
-                                </c:otherwise>
-                            </c:choose>
-                        </span>
                     </th>
-                    <th>
-                        Time Created
+                    <th class="table-middle">
+                        Time Resolved
                         <span class="pull-right">
                             <c:choose>
                                 <c:when test='${column == "time-resolved|asc"}'>
-                                    <button type="submit" class="btn btn-link" name="column" value="time-resolved|desc">
+                                    <button type="submit" class="btn btn-link" name="column" value="time-resolved|DESC">
                                         <i class="fa fa-fw fa-sort"></i>
                                     </button>
                                 </c:when>
                                 <c:otherwise>
-                                    <button type="submit" class="btn btn-link" name="column" value="time-resolved|asc">
+                                    <button type="submit" class="btn btn-link" name="column" value="time-resolved|ASC">
                                         <i class="fa fa-fw fa-sort"></i>
                                     </button>
                                 </c:otherwise>
@@ -138,10 +94,9 @@
                     <c:when test="${issues.size() > 0}">
                         <c:forEach items="${issues}" var="issue">
                             <tr>
-                                <td>Article ${issue.getIssueId()}</td>
                                 <td>${issue.getTitle()}</td>
-                                <td>${issue.getCategory()}</td>
-                                <td>${issue.getResolved()}</td>
+                                <td>${issue.getCategory().getTitle()}</td>
+                                <td><fmt:formatDate type="both" value="${issue.getResolved()}"/></td>
                                 <td>
                                     <a href="/kb/${issue.getIssueId()}"
                                        class="button button-primary button-small button-block">

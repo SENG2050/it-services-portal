@@ -4,7 +4,7 @@
 
 <t:page>
     <jsp:attribute name="title">
-       FILLER ${issue.getTitle()}
+       ${issue.getTitle()}
     </jsp:attribute>
     <jsp:attribute name="breadcrumbs">
         <ol class="breadcrumb pull-right">
@@ -12,19 +12,26 @@
                 <a href="/">Home</a>
             </li>
             <li>
-                <a href="/issues">Issues</a>
+                <a href="/kb">Knowledge Base</a>
             </li>
-            <li class="active">FILLER${issue.getTitle()}</li>
+            <li class="active">${issue.getTitle()}</li>
         </ol>
     </jsp:attribute>
     <jsp:body>
-        <h1>ARTICLE NAME${issue.getTitle()}</h1>
-        <p>TIME RESOLVED:${issue.getResolved()}</p>
-        <h2>Category
-                ${issue.getCategory()}
-        </h2>
-        <h2>${issue.getResolution()}</h2>
+        <h2>Category: ${issue.getCategory().getTitle()}</h2>
         <h2>Description</h2>
-        <p>Fill${issue.getDescription()}</p>
+            <div class="panel panel-primary-dark">
+                <div class="panel-body">
+                    <p>${issue.getDescription()}</p>
+                </div>
+            </div>
+        <h2>Resolution</h2>
+        <p>Time Resolved:    ${issue.getResolved()}</p>
+            <div class="panel panel-primary-dark">
+                <div class="panel-body">
+                    <p>${issue.getResolution()}</p>
+                </div>
+            </div>
+
     </jsp:body>
 </t:page>

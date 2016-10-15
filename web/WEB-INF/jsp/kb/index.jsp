@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 
 <t:page>
     <jsp:attribute name="title">
@@ -25,78 +26,18 @@
             <div class="col-md-12">
                 <h2 class="right-line">Browse by Topic</h2>
             </div>
-            <div class="col-md-6">
-                <h3 class="no-margin-top">Getting Started</h3>
-                <ul class="list-line">
-                    <li><a href="#">Qui assumenda veniam impedit inventore blanditiis nulla?</a></li>
-                    <li><a href="#">Amet, sunt, harum. Fugiat, reprehenderit mollitia dolore?</a></li>
-                    <li><a href="#">Ullam possimus sapiente ratione, nemo eum saepe?</a></li>
-                    <li><a href="#">Eius adipisci obcaecati quidem dolorum, saepe maxime?</a></li>
-                    <li><a href="#">Ratione pariatur omnis sed ea quos optio?</a></li>
-                </ul>
-            </div>
-            <div class="col-md-6">
-                <h3 class="no-margin-top">Account and Preferences</h3>
-                <ul class="list-line">
-                    <li><a href="#">Qui assumenda veniam impedit inventore blanditiis nulla?</a></li>
-                    <li><a href="#">Amet, sunt, harum. Fugiat, reprehenderit mollitia dolore?</a></li>
-                    <li><a href="#">Ullam possimus sapiente ratione, nemo eum saepe?</a></li>
-                    <li><a href="#">Eius adipisci obcaecati quidem dolorum, saepe maxime?</a></li>
-                    <li><a href="#">Ratione pariatur omnis sed ea quos optio?</a></li>
-                </ul>
-            </div>
-        </div>
-        <!-- row -->
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="right-line">Premium &amp; Billing</h2>
-            </div>
-            <div class="col-md-6">
-                <h3 class="no-margin-top">Versions &amp; Feedback</h3>
-                <ul class="list-line">
-                    <li><a href="#">Qui assumenda veniam impedit inventore blanditiis nulla?</a></li>
-                    <li><a href="#">Amet, sunt, harum. Fugiat, reprehenderit mollitia dolore?</a></li>
-                    <li><a href="#">Ullam possimus sapiente ratione, nemo eum saepe?</a></li>
-                    <li><a href="#">Eius adipisci obcaecati quidem dolorum, saepe maxime?</a></li>
-                    <li><a href="#">Ratione pariatur omnis sed ea quos optio?</a></li>
-                </ul>
-            </div>
-            <div class="col-md-6">
-                <h3 class="no-margin-top">Mobile &amp; Tablet</h3>
-                <ul class="list-line">
-                    <li><a href="#">Qui assumenda veniam impedit inventore blanditiis nulla?</a></li>
-                    <li><a href="#">Amet, sunt, harum. Fugiat, reprehenderit mollitia dolore?</a></li>
-                    <li><a href="#">Ullam possimus sapiente ratione, nemo eum saepe?</a></li>
-                    <li><a href="#">Eius adipisci obcaecati quidem dolorum, saepe maxime?</a></li>
-                    <li><a href="#">Ratione pariatur omnis sed ea quos optio?</a></li>
-                </ul>
-            </div>
-        </div>
-        <!-- row -->
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="right-line">Other Category</h2>
-            </div>
-            <div class="col-md-6">
-                <h3 class="no-margin-top">Getting Started</h3>
-                <ul class="list-line">
-                    <li><a href="#">Qui assumenda veniam impedit inventore blanditiis nulla?</a></li>
-                    <li><a href="#">Amet, sunt, harum. Fugiat, reprehenderit mollitia dolore?</a></li>
-                    <li><a href="#">Ullam possimus sapiente ratione, nemo eum saepe?</a></li>
-                    <li><a href="#">Eius adipisci obcaecati quidem dolorum, saepe maxime?</a></li>
-                    <li><a href="#">Ratione pariatur omnis sed ea quos optio?</a></li>
-                </ul>
-            </div>
-            <div class="col-md-6">
-                <h3 class="no-margin-top">Account and Preferences</h3>
-                <ul class="list-line">
-                    <li><a href="#">Qui assumenda veniam impedit inventore blanditiis nulla?</a></li>
-                    <li><a href="#">Amet, sunt, harum. Fugiat, reprehenderit mollitia dolore?</a></li>
-                    <li><a href="#">Ullam possimus sapiente ratione, nemo eum saepe?</a></li>
-                    <li><a href="#">Eius adipisci obcaecati quidem dolorum, saepe maxime?</a></li>
-                    <li><a href="#">Ratione pariatur omnis sed ea quos optio?</a></li>
-                </ul>
-            </div>
+            <c:choose>
+                <c:when test="${issues.size() > 0}">
+                    <c:forEach items="${issues}" var="issue">
+                        <div class="col-md-6">
+                            <h3 class="no-margin-top">${issue.getCategory().getTitle()}</h3>
+                            <ul class="list-line">
+                                <li><a href="/kb/${issue.getIssueId()}">${issue.getTitle()}</a></li>
+                            </ul>
+                        </div>
+                    </c:forEach>
+                </c:when>
+            </c:choose>
         </div>
     </jsp:body>
 </t:page>
