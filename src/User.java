@@ -13,14 +13,15 @@ public class User {
     private String email;
     private String password;
     private boolean notification;
+    private String notificationText;
 
     private Role_DBWrapper role_dbWrapper;
 
     public User() {
-        this(0, "", "", 0, "", "", "", false);
+        this(0, "", "", 0, "", "", "", false, "");
     }
 
-    public User(int userId, String firstName, String lastName, int role, String phone, String email, String password, boolean notification) {
+    public User(int userId, String firstName, String lastName, int role, String phone, String email, String password, boolean notification, String notificationText) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -29,6 +30,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.notification = notification;
+        this.notificationText = notificationText;
 
         this.role_dbWrapper = new Role_DBWrapper();
     }
@@ -96,6 +98,14 @@ public class User {
 
     public void setNotification(boolean notification) {
         this.notification = notification;
+    }
+
+    public String getNotificationText() {
+        return notificationText;
+    }
+
+    public void setNotificationText(String notificationText) {
+        this.notificationText = notificationText;
     }
 
     public boolean isAdmin() {

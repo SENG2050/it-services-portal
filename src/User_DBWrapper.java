@@ -86,7 +86,8 @@ public class User_DBWrapper extends DBWrapper {
     @Override
     protected Map<String, String> mapObjectToUpdateValues() {
         Map<String, String> values = new HashMap<>();
-        values.put("values", "NOTIFICATION='" + this.user.hasNotification() + "'");
+        values.put("values", "notification=" + this.user.hasNotification() + "" +
+                "notification_text='" + this.user.getNotificationText() + "'");
         return values;
     }
 
@@ -107,7 +108,8 @@ public class User_DBWrapper extends DBWrapper {
                     rs.getString("phoneNumber"),
                     rs.getString("email"),
                     rs.getString("password"),
-                    rs.getBoolean("notification")
+                    rs.getBoolean("notification"),
+                    rs.getString("notification_text")
             );
         } catch (Exception ex) {
             System.out.println(ex.toString());

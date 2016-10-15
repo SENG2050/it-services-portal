@@ -36,7 +36,7 @@ public class Category {
     /**
      * getIssues
      * Returns all issues that belong to this category
-     * @return
+     * @return Issue
      */
     public Issue[] getIssues() {
         this.issue_wrapper.reset();

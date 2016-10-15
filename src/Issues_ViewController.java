@@ -37,6 +37,7 @@ public class Issues_ViewController extends BaseController {
             // Notify reporter
             User reporter = this.portalBean.users.getById(updatedIssue.getUserId());
             reporter.setNotification(true);
+            reporter.setNotificationText("Issue: #" + updatedIssue.getIssueId() + " has been updated.");
             this.portalBean.users.updateUser(reporter);
         }
         // End update user on status change

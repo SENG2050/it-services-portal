@@ -122,9 +122,14 @@ public class BaseController extends HttpServlet {
         this.setLoggedIn(this.user != null);
 
         // User has a notification/issue has been updated
-        // @TODO: Alter notification text
-        if (this.user != null && this.user.hasNotification()) {
-            request.setAttribute("notification", "Has Notification.");
+        if (this.getUser() != null) {
+            // Refresh User
+            this.setUser(this.portalBean.users.getById(this.getUser().getUserId()));
+            // Check Notification
+            if (this.getUser().hasNotification()) {
+                // Set Notification
+                request.setAttribute("notification", this.user.getNotificationText());
+            }
         }
 
         request.setAttribute("user", this.getUser());
