@@ -28,5 +28,17 @@ public class Issues_ViewController extends BaseController {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         super.doPost(request, response);
+
+        //@TODO: Not sure how the issue is being sent through here, so will just generate a dummy issue for now
+        Issue updatedIssue = new Issue();
+        // Update user on status change if needed
+        Issue currentState = this.portalBean.issues.getIssueById(updatedIssue.getIssueId());
+        if (updatedIssue.getIssueId() != currentState.getIssueId()) {
+            // Notify reporter
+            User reporter = this.portalBean.users.getById(updatedIssue.getUserId());
+            reporter.setNotification(true);
+            this.portalBean.users.updateUser(reporter);
+        }
+        // End update user on status change
     }
 }

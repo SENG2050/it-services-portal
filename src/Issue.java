@@ -1,7 +1,10 @@
 import java.util.Date;
 
 /**
- * Created by b8ne on 25/09/2016.
+ * Issue
+ * Holds all data for an issue
+ * Author: Ben Sutter
+ * Updated: 15/10/16
  */
 public class Issue {
     private int issueId;
@@ -10,9 +13,14 @@ public class Issue {
     private String resolution;
     private int category;
     private int userId;
-    private int Status;
+    private int status;
     private Date created;
     private Date resolved;
+
+    private Comment_DBWrapper comment_wrapper;
+    private Category_DBWrapper category_wrapper;
+    private Status_DBWrapper status_dbWrapper;
+    private User_DBWrapper user_dbWrapper;
 
     public Issue() {
 
@@ -25,9 +33,14 @@ public class Issue {
         this.resolution = resolution;
         this.category = category;
         this.userId = userId;
-        Status = status;
+        this.status = status;
         this.created = created;
         this.resolved = resolved;
+
+        this.comment_wrapper = new Comment_DBWrapper();
+        this.category_wrapper = new Category_DBWrapper();
+        this.status_dbWrapper = new Status_DBWrapper();
+        this.user_dbWrapper = new User_DBWrapper();
     }
 
     public int getIssueId() {
@@ -62,10 +75,6 @@ public class Issue {
         this.resolution = resolution;
     }
 
-    public int getCategory() {
-        return category;
-    }
-
     public void setCategory(int category) {
         this.category = category;
     }
@@ -78,12 +87,8 @@ public class Issue {
         this.userId = userId;
     }
 
-    public int getStatus() {
-        return Status;
-    }
-
     public void setStatus(int status) {
-        Status = status;
+        status = status;
     }
 
     public Date getCreated() {
@@ -100,5 +105,46 @@ public class Issue {
 
     public void setResolved(Date resolved) {
         this.resolved = resolved;
+    }
+
+    /**
+     * getComments
+     * Returns all comments attached to this issue
+     * @return
+     */
+    public Comment[] getComments () {
+        this.comment_wrapper.reset();
+        return this.comment_wrapper.getCommentByIssueId(this.issueId);
+    }
+
+    /**
+     * getCategory
+     * Returns the category model that this issue belongs to
+     * @return
+     */
+    public Category getCategory() {
+        this.category_wrapper.reset();
+        return this.category_wrapper.getCategoryById(this.category);
+    }
+
+    /**
+     * getStatus
+     * Returns the status model attached to this issue
+     * @return
+     */
+    public Status getStatus()
+    {
+        this.status_dbWrapper.reset();
+        return this.status_dbWrapper.getStatusById(this.status);
+    }
+
+    /**
+     * getUser
+     * Returns the user model attached to this issue
+     * @return
+     */
+    public User getUser() {
+        this.user_dbWrapper.reset();
+        return this.user_dbWrapper.getById(this.userId);
     }
 }

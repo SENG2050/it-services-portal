@@ -1,10 +1,10 @@
 /**
- * Created by b8ne on 25/09/2016.
+ * User
+ * Models a User
+ * Author: Ben Sutter
+ * Updated: 15/10/16
  */
 public class User {
-    public static final int ROLE_ADMIN = 1;
-    public static final int ROLE_USER = 2;
-
     private int userId;
     private String firstName;
     private String lastName;
@@ -12,12 +12,15 @@ public class User {
     private String phone;
     private String email;
     private String password;
+    private boolean notification;
+
+    private Role_DBWrapper role_dbWrapper;
 
     public User() {
-        this(0, "", "", 0, "", "", "");
+        this(0, "", "", 0, "", "", "", false);
     }
 
-    public User(int userId, String firstName, String lastName, int role, String phone, String email, String password) {
+    public User(int userId, String firstName, String lastName, int role, String phone, String email, String password, boolean notification) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -25,6 +28,9 @@ public class User {
         this.phone = phone;
         this.email = email;
         this.password = password;
+        this.notification = notification;
+
+        this.role_dbWrapper = new Role_DBWrapper();
     }
 
     public int getUserId() {
@@ -51,8 +57,9 @@ public class User {
         this.lastName = lastName;
     }
 
-    public int getRole() {
-        return role;
+    public Role getRole() {
+        this.role_dbWrapper.reset();
+        return this.role_dbWrapper.getRoleById(this.role);
     }
 
     public void setRole(int role) {
@@ -83,11 +90,19 @@ public class User {
         this.password = password;
     }
 
+    public boolean hasNotification() {
+        return notification;
+    }
+
+    public void setNotification(boolean notification) {
+        this.notification = notification;
+    }
+
     public boolean isAdmin() {
-        return this.role == ROLE_ADMIN;
+        return this.getRole().getTitle().equals("Admin");
     }
 
     public boolean isUser() {
-        return this.role == ROLE_USER;
+        return this.getRole().getTitle().equals("User");
     }
 }

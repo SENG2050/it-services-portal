@@ -1,7 +1,5 @@
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * User_DBWrapper
@@ -12,9 +10,14 @@ import java.util.List;
  * Updated: 5/10/16
  */
 public class User_DBWrapper extends DBWrapper {
+    private User user;
     public User_DBWrapper() {
         this.setTableName("users");
     }
+
+    //-----------
+    // Accessors
+    //-----------
 
     /**
      * getUsers()
@@ -62,6 +65,31 @@ public class User_DBWrapper extends DBWrapper {
         return (User[]) data.toArray(new User[data.size()]);
     }
 
+    //-----------
+    // Mutators
+    //-----------
+
+    /**
+     * Update and existing comment
+     * @param user
+     * @return
+     */
+    public boolean updateUser(User user) {
+        this.user = user;
+        return this.updateRow(user.getUserId());
+    }
+
+    /**
+     * Maps an User to an SQL update statement
+     * @return
+     */
+    @Override
+    protected Map<String, String> mapObjectToUpdateValues() {
+        Map<String, String> values = new HashMap<>();
+        values.put("values", "NOTIFICATION='" + this.user.hasNotification() + "'");
+        return values;
+    }
+
     /**
      * mapRowToObject()
      * Maps a row to a User
@@ -78,7 +106,8 @@ public class User_DBWrapper extends DBWrapper {
                     rs.getInt("role"),
                     rs.getString("phoneNumber"),
                     rs.getString("email"),
-                    rs.getString("password")
+                    rs.getString("password"),
+                    rs.getBoolean("notification")
             );
         } catch (Exception ex) {
             System.out.println(ex.toString());

@@ -121,6 +121,12 @@ public class BaseController extends HttpServlet {
         this.setUser((User) this.session.getAttribute("user"));
         this.setLoggedIn(this.user != null);
 
+        // User has a notification/issue has been updated
+        // @TODO: Alter notification text
+        if (this.user.hasNotification()) {
+            request.setAttribute("notification", "Has Notification.");
+        }
+
         request.setAttribute("user", this.getUser());
         request.setAttribute("loggedIn", this.isLoggedIn());
     }

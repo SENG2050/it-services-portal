@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Issue_DBWrapper
- * Extends DBWrapper to handle Issue specific requests
+ * Comment_DBWrapper
+ * Extends DBWrapper to handle Comment specific requests
  * Author: Ben Sutter
- * Updated: 5/10/16
+ * Updated: 15/10/16
  */
 public class Comment_DBWrapper extends DBWrapper {
     private Comment comment;
@@ -103,6 +103,8 @@ public class Comment_DBWrapper extends DBWrapper {
             return new Comment(
                     rs.getInt("id"),
                     rs.getInt("issueId"),
+                    rs.getInt("user"),
+                    rs.getBoolean("public"),
                     rs.getString("comment"),
                     rs.getDate("created")
             );
@@ -132,7 +134,9 @@ public class Comment_DBWrapper extends DBWrapper {
         Map<String, String> values = new HashMap<>();
         values.put("columns", "issueId, comment, created");
         values.put("values", this.comment.getIssueId() + ", " +
+                this.comment.getIssueId() + ", " +
                 "'" + this.comment.getComment() + "', " +
+                this.comment.isPublic() + ", " +
                 "'" + this.comment.getCreated() + "'");
         return values;
     }

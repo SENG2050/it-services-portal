@@ -51,7 +51,7 @@ public class Issue_DBWrapper extends DBWrapper {
      * @param category String
      * @return Issue[]
      */
-    public Issue[] getIssuesByCategory(String category) {
+    public Issue[] getIssuesByCategory(int category) {
         List<Object> data = this.getManyBy("category", category);
 
         return (Issue[]) data.toArray(new Issue[data.size()]);
