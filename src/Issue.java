@@ -147,4 +147,13 @@ public class Issue {
         this.user_dbWrapper.reset();
         return this.user_dbWrapper.getById(this.userId);
     }
+
+    /**
+     * isKBArticle
+     * Helper function to check if the issue is to be shown in knowledge base
+     * @return
+     */
+    public boolean isKBArticle() {
+        return this.getStatus().getTitle().equals("Knowledge Base");
+    }
 }

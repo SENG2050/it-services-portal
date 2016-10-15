@@ -129,6 +129,10 @@ public class BaseController extends HttpServlet {
             if (this.getUser().hasNotification()) {
                 // Set Notification
                 request.setAttribute("notification", this.user.getNotificationText());
+                // Toggle flag on user
+                User user = this.getUser();
+                user.setNotification(false);
+                this.portalBean.users.updateUser(user);
             }
         }
 
