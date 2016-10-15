@@ -1,5 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <t:page>
     <jsp:attribute name="title">
@@ -58,85 +60,67 @@
                                     </div>
                                 </div>
                             </li>
-                            <li class="comment">
-                                <div class="panel panel-primary">
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-sm-1">
-                                                <img src="https://www.gravatar.com/avatar/abc?d=mm&s=50"
-                                                     class="imageborder img-circle">
+                            <c:forEach items="${issue.getComments()}" var="comment">
+                                <li class="comment">
+                                    <c:choose>
+                                        <c:when test="${comment.isPublic()}">
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-sm-1">
+                                                            <img src="https://www.gravatar.com/avatar/${comment.getUser().getEmailHash()}?d=mm&s=50"
+                                                                 class="imageborder img-circle">
+                                                        </div>
+                                                        <div class="col-sm-11">
+                                                            <p>${comment.getComment()}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel-footer">
+                                                    <div class="row">
+                                                        <div class="col-sm-9">
+                                                            <i class="fa fa-user"></i>
+                                                                ${comment.getUser().getName()}
+                                                            <i class="fa fa-clock-o"></i>
+                                                            <fmt:formatDate type="both"
+                                                                            value="${comment.getCreated()}"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-sm-11">
-                                                <p>This is an internal comment that is only available to other
-                                                    staff.</p>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="panel panel-primary">
+                                                <div class="panel-body">
+                                                    <div class="row">
+                                                        <div class="col-sm-1">
+                                                            <img src="https://www.gravatar.com/avatar/${comment.getUser().getEmailHash()}?d=mm&s=50"
+                                                                 class="imageborder img-circle">
+                                                        </div>
+                                                        <div class="col-sm-11">
+                                                            <p>${comment.getComment()}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel-footer">
+                                                    <div class="row">
+                                                        <div class="col-sm-9">
+                                                            <i class="fa fa-user"></i>
+                                                                ${comment.getUser().getName()}
+                                                            <i class="fa fa-clock-o"></i>
+                                                            <fmt:formatDate type="both"
+                                                                            value="${comment.getCreated()}"/>
+                                                        </div>
+                                                        <div class="col-sm-3 text-right">
+                                                            <i>Internal comment</i>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="panel-footer">
-                                        <div class="row">
-                                            <div class="col-sm-9">
-                                                <i class="fa fa-user"></i>
-                                                Mitchell Davis
-                                                <i class="fa fa-clock-o"></i>
-                                                Sep 29, 2013
-                                            </div>
-                                            <div class="col-sm-3 text-right">
-                                                <i>Internal comment</i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="comment">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-sm-1">
-                                                <img src="https://www.gravatar.com/avatar/abc?d=mm&s=50"
-                                                     class="imageborder img-circle">
-                                            </div>
-                                            <div class="col-sm-11">
-                                                <p>Thanks Giang, I'll check in on this and get back to you soon.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="panel-footer">
-                                        <div class="row">
-                                            <div class="col-lg-10 col-md-9 col-sm-8">
-                                                <i class="fa fa-user"></i>
-                                                Mitchell Davis
-                                                <i class="fa fa-clock-o"></i>
-                                                Sep 29, 2013
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="comment">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-sm-1">
-                                                <img src="https://www.gravatar.com/avatar/abc?d=mm&s=50"
-                                                     class="imageborder img-circle">
-                                            </div>
-                                            <div class="col-sm-11">
-                                                <p>Here is some secondary information that may be helpful.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="panel-footer">
-                                        <div class="row">
-                                            <div class="col-lg-10 col-md-9 col-sm-8">
-                                                <i class="fa fa-user"></i>
-                                                Giang Pham
-                                                <i class="fa fa-clock-o"></i>
-                                                Sep 29, 2013
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </li>
+                            </c:forEach>
                         </ul>
                     </section>
                 </div>
@@ -148,16 +132,27 @@
                             <div class="panel-body">
                                 <dl>
                                     <dt>User</dt>
-                                    <dd>Giang Pham</dd>
+                                    <dd>${issue.getUser().getName()}</dd>
+
+                                    <dt>Email</dt>
+                                    <dd>${issue.getUser().getEmail()}</dd>
+
+                                    <dt>Phone Number</dt>
+                                    <dd>${issue.getUser().getPhone()}</dd>
 
                                     <dt>Time Created</dt>
-                                    <dd>${issue.getCreated()}</dd>
+                                    <dd><fmt:formatDate type="both" value="${issue.getCreated()}"/></dd>
+
+                                    <c:if test="${issue.getResolved() != null}">
+                                        <dt>Time Resolved</dt>
+                                        <dd><fmt:formatDate type="both" value="${issue.getResolved()}"/></dd>
+                                    </c:if>
 
                                     <dt>Status</dt>
-                                    <dd>${issue.getStatus()}</dd>
+                                    <dd>${issue.getStatus().getTitle()}</dd>
 
                                     <dt>Category</dt>
-                                    <dd>${issue.getCategory()}</dd>
+                                    <dd>${issue.getCategory().getTitle()}</dd>
                                 </dl>
                             </div>
                         </div>

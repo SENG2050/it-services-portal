@@ -14,14 +14,13 @@ public class Issues_ViewController extends BaseController {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         super.doGet(request, response);
 
-        ArrayList<Issue> issues = this.generateDummyData();
-
         String path = request.getPathInfo();
         String[] pathParts = path.split("/");
 
         int id = Integer.parseInt(pathParts[1]);
 
-        request.setAttribute("issue", issues.get(id - 1));
+        Issue issue = this.getPortalBean().getIssues().getIssueById(id);
+        request.setAttribute("issue", issue);
 
         request.getRequestDispatcher("/WEB-INF/jsp/issues/view-admin.jsp").forward(request, response);
     }

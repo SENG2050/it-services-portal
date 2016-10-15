@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <t:page>
     <jsp:attribute name="title">
@@ -128,10 +129,10 @@
                         <c:forEach items="${issues}" var="issue">
                             <tr>
                                 <td>Issue ${issue.getIssueId()}</td>
-                                <td>${issue.getUserId()}</td>
-                                <td>${issue.getStatus()}</td>
+                                <td>${issue.getUser().getName()}</td>
+                                <td>${issue.getStatus().getTitle()}</td>
                                 <td>${issue.getTitle()}</td>
-                                <td>${issue.getCreated()}</td>
+                                <td><fmt:formatDate type="both" value="${issue.getCreated()}"/></td>
                                 <td>
                                     <a href="/issues/${issue.getIssueId()}"
                                        class="button button-primary button-small button-block">
