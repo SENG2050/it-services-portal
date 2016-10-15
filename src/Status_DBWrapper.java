@@ -41,6 +41,18 @@ public class Status_DBWrapper extends DBWrapper {
         return Status.class.cast(this.getOneBy("id", id));
     }
 
+    /**
+     * runQuery()
+     * Returns the queried results
+     *
+     * @return Status[]
+     */
+    public Status[] runQuery() {
+        List<Object> data = this.run();
+
+        return (Status[]) data.toArray(new Status[data.size()]);
+    }
+
     //-----------
     // Helper
     //-----------

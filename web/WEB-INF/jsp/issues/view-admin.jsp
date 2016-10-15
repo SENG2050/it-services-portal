@@ -33,33 +33,37 @@
                     <section class="css-section">
                         <h2 class="section-title">Comments</h2>
                         <ul class="list-unstyled">
-                            <li class="comment">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <div class="row">
-                                            <div class="col-sm-10">
-                                                <label class="control-label" for="reply">Reply</label>
-                                            </div>
+                            <c:if test='${issue.getStatus().getTitle() != "Resolved" && issue.getStatus().getTitle() != "Knowledge Base"}'>
+                                <li class="comment">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-10">
+                                                    <label class="control-label" for="reply">Reply</label>
+                                                </div>
 
-                                            <div class="col-sm-2 text-right">
-                                                <div class="btn-group" data-toggle="buttons">
-                                                    <label class="btn btn-default btn-xs active">
-                                                        <input type="radio" name="public" value="1" autocomplete="off"
-                                                               checked> Public
-                                                    </label>
-                                                    <label class="btn btn-primary btn-xs">
-                                                        <input type="radio" name="public" value="0" autocomplete="off">
-                                                        Internal
-                                                    </label>
+                                                <div class="col-sm-2 text-right">
+                                                    <div class="btn-group" data-toggle="buttons">
+                                                        <label class="btn btn-default btn-xs active">
+                                                            <input type="radio" name="public" value="1"
+                                                                   autocomplete="off"
+                                                                   checked> Public
+                                                        </label>
+                                                        <label class="btn btn-primary btn-xs">
+                                                            <input type="radio" name="public" value="0"
+                                                                   autocomplete="off">
+                                                            Internal
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <textarea class="form-control" rows="5" id="reply" name="reply"
-                                                  placeholder="Type your reply here..."></textarea>
+                                            <textarea class="form-control" rows="5" id="reply" name="reply"
+                                                      placeholder="Type your reply here..."></textarea>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
+                                </li>
+                            </c:if>
                             <c:forEach items="${issue.getComments()}" var="comment">
                                 <li class="comment">
                                     <c:choose>
@@ -159,30 +163,38 @@
 
                         <input type="hidden" name="status" id="issueStatus"/>
 
-                        <div class="btn-group btn-block">
-                            <button type="button" class="btn btn-primary btn-block dropdown-toggle"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Submit <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="javascript:void();" onclick="IssuesViewAdmin.submitAs(0);">Submit as
-                                        New</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void();" onclick="IssuesViewAdmin.submitAs(1);">Submit as
-                                        Open</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void();" onclick="IssuesViewAdmin.submitAs(2);">Submit as
-                                        Pending</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void();" onclick="IssuesViewAdmin.submitAs(3);">Submit as
-                                        Resolved</a>
-                                </li>
-                            </ul>
-                        </div>
+                        <c:choose>
+                            <c:when test='${issue.getStatus().getTitle() != "Resolved" && issue.getStatus().getTitle() != "Knowledge Base"}'>
+                                <div class="btn-group btn-block">
+                                    <button type="button" class="btn btn-primary btn-block dropdown-toggle"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Submit <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <c:forEach items="${statuses}" var="status">
+                                            <c:if test='${status.getTitle() != "Knowledge Base"}'>
+                                                <li>
+                                                    <a href="javascript:void();"
+                                                       onclick="IssuesViewAdmin.submitAs(${status.getId()});">
+                                                        Submit as ${status.getTitle()}</a>
+                                                </li>
+                                            </c:if>
+                                        </c:forEach>
+                                    </ul>
+                                </div>
+                            </c:when>
+                            <c:when test='${issue.getStatus().getTitle() == "Resolved"}'>
+                                <c:forEach items="${statuses}" var="status">
+                                    <c:if test='${status.getTitle() == "Knowledge Base"}'>
+                                        <a href="javascript:void();"
+                                           onclick="IssuesViewAdmin.submitAs(${status.getId()});"
+                                           class="btn btn-primary btn-block">
+                                            Submit as ${status.getTitle()}
+                                        </a>
+                                    </c:if>
+                                </c:forEach>
+                            </c:when>
+                        </c:choose>
                     </section>
                 </div>
             </div>

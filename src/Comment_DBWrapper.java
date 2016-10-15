@@ -58,6 +58,18 @@ public class Comment_DBWrapper extends DBWrapper {
         return (Comment[]) data.toArray(new Comment[data.size()]);
     }
 
+    /**
+     * runQuery()
+     * Returns the queried results
+     *
+     * @return Comment[]
+     */
+    public Comment[] runQuery() {
+        List<Object> data = this.run();
+
+        return (Comment[]) data.toArray(new Comment[data.size()]);
+    }
+
     //-----------
     // Mutators
     //-----------

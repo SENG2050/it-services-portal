@@ -44,6 +44,18 @@ public class Role_DBWrapper extends DBWrapper {
         return Role.class.cast(this.getOneBy("id", id));
     }
 
+    /**
+     * runQuery()
+     * Returns the queried results
+     *
+     * @return Role[]
+     */
+    public Role[] runQuery() {
+        List<Object> data = this.run();
+
+        return (Role[]) data.toArray(new Role[data.size()]);
+    }
+
     //-----------
     // Helper
     //-----------

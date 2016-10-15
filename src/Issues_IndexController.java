@@ -21,7 +21,7 @@ public class Issues_IndexController extends BaseController {
                 String column = request.getParameter("column");
                 request.setAttribute("column", column);
 
-                if (column != null) {
+                if (column != null && column.equals("") == false) {
                     String[] split = column.split("\\|");
 
                     String sortBy = split[0];
@@ -31,8 +31,23 @@ public class Issues_IndexController extends BaseController {
                 }
 
                 List<Issue> issues = Arrays.asList(issueWrapper.runQuery());
-
                 request.setAttribute("issues", issues);
+
+                Status_DBWrapper statusWrapper = this.getPortalBean().getStatuses();
+
+                statusWrapper.reset();
+                statusWrapper.addSort("id", "ASC");
+
+                Status[] statuses = statusWrapper.runQuery();
+                request.setAttribute("statuses", statuses);
+
+                Category_DBWrapper categoryWrapper = this.getPortalBean().getCategories();
+
+                categoryWrapper.reset();
+                categoryWrapper.addSort("title", "ASC");
+
+                Category[] categories = categoryWrapper.runQuery();
+                request.setAttribute("categories", categories);
 
                 request.getRequestDispatcher("/WEB-INF/jsp/issues/index.jsp").forward(request, response);
             } else {

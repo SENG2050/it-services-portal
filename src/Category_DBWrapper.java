@@ -44,6 +44,18 @@ public class Category_DBWrapper extends DBWrapper {
         return Category.class.cast(this.getOneBy("id", id));
     }
 
+    /**
+     * runQuery()
+     * Returns the queried results
+     *
+     * @return Category[]
+     */
+    public Category[] runQuery() {
+        List<Object> data = this.run();
+
+        return (Category[]) data.toArray(new Category[data.size()]);
+    }
+
     //-----------
     // Helper
     //-----------

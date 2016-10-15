@@ -11,6 +11,14 @@ public class Issues_NewController extends BaseController {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         super.doGet(request, response);
 
+        Category_DBWrapper categoryWrapper = this.getPortalBean().getCategories();
+
+        categoryWrapper.reset();
+        categoryWrapper.addSort("title", "ASC");
+
+        Category[] categories = categoryWrapper.runQuery();
+        request.setAttribute("categories", categories);
+
         request.getRequestDispatcher("/WEB-INF/jsp/issues/new.jsp").forward(request, response);
     }
 

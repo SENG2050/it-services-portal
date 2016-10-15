@@ -22,23 +22,75 @@
         <div class="panel panel-border">
             <div class="panel-body">
                 <form method="get" action="/issues/search" class="m-b-none">
-                    <div class="input-group">
-                        <input type="text" class="form-control input-lg" value="${term}"
-                               placeholder="Enter a search term..." name="term" required="required">
-                        <span class="input-group-btn">
-                            <button class="btn btn-ar btn-lg btn-primary" type="submit">Search</button>
-                        </span>
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <select class="form-control" name="status">
+                                <c:choose>
+                                    <c:when test='${status == null || status == "0"}'>
+                                        <option value="0" selected="selected">Any Status</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option value="0">Any Status</option>
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:forEach items="${statuses}" var="s">
+                                    <c:choose>
+                                        <c:when test='${status != null && status == s.getId().toString()}'>
+                                            <option value="${s.getId()}" selected="selected">${s.getTitle()}</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="${s.getId()}">${s.getTitle()}</option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <select class="form-control" name="category">
+                                <c:choose>
+                                    <c:when test='${category == null || category == "0"}'>
+                                        <option value="0" selected="selected">Any Category</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option value="0">Any Category</option>
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:forEach items="${categories}" var="c">
+                                    <c:choose>
+                                        <c:when test='${category != null && category == c.getId().toString()}'>
+                                            <option value="${c.getId()}" selected="selected">${c.getTitle()}</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="${c.getId()}">${c.getTitle()}</option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input type="text" class="form-control input-lg" value="${term}"
+                                       placeholder="Enter a search term..." name="term">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-ar btn-lg btn-primary" type="submit">Search</button>
+                                </span>
+                            </div>
+                        </div>
                     </div>
+
+                    <input type="hidden" name="column" value="${column}">
                 </form>
             </div>
         </div>
         <form method="get" action="/issues/search" class="m-b-none">
+            <input type="hidden" name="status" value="${status}">
+            <input type="hidden" name="category" value="${category}">
             <input type="hidden" name="term" value="${term}">
 
             <table class="table table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>
+                    <th class="table-middle">
                         ID
                         <span class="pull-right">
                             <c:choose>
@@ -55,41 +107,16 @@
                             </c:choose>
                         </span>
                     </th>
-                    <th>
+                    <th class="table-middle">
                         User
-                        <span class="pull-right">
-                            <c:choose>
-                                <c:when test='${column == "userId|ASC"}'>
-                                    <button type="submit" class="btn btn-link" name="column" value="userId|DESC">
-                                        <i class="fa fa-fw fa-sort"></i>
-                                    </button>
-                                </c:when>
-                                <c:otherwise>
-                                    <button type="submit" class="btn btn-link" name="column" value="userId|ASC">
-                                        <i class="fa fa-fw fa-sort"></i>
-                                    </button>
-                                </c:otherwise>
-                            </c:choose>
-                        </span>
                     </th>
-                    <th>
+                    <th class="table-middle">
                         Status
-                        <span class="pull-right">
-                            <c:choose>
-                                <c:when test='${column == "status|ASC"}'>
-                                    <button type="submit" class="btn btn-link" name="column" value="status|DESC">
-                                        <i class="fa fa-fw fa-sort"></i>
-                                    </button>
-                                </c:when>
-                                <c:otherwise>
-                                    <button type="submit" class="btn btn-link" name="column" value="status|ASC">
-                                        <i class="fa fa-fw fa-sort"></i>
-                                    </button>
-                                </c:otherwise>
-                            </c:choose>
-                        </span>
                     </th>
-                    <th>
+                    <th class="table-middle">
+                        Category
+                    </th>
+                    <th class="table-middle">
                         Title
                         <span class="pull-right">
                             <c:choose>
@@ -106,7 +133,7 @@
                             </c:choose>
                         </span>
                     </th>
-                    <th>
+                    <th class="table-middle">
                         Time Created
                         <span class="pull-right">
                             <c:choose>
@@ -123,7 +150,7 @@
                             </c:choose>
                         </span>
                     </th>
-                    <th>
+                    <th class="table-middle">
                         View
                     </th>
                 </tr>
@@ -136,6 +163,7 @@
                                 <td>Issue ${issue.getIssueId()}</td>
                                 <td>${issue.getUser().getName()}</td>
                                 <td>${issue.getStatus().getTitle()}</td>
+                                <td>${issue.getCategory().getTitle()}</td>
                                 <td>${issue.getTitle()}</td>
                                 <td><fmt:formatDate type="both" value="${issue.getCreated()}"/></td>
                                 <td>
@@ -150,7 +178,7 @@
                     </c:when>
                     <c:otherwise>
                         <tr>
-                            <td colspan="6" class="text-center">There are no matching issues.</td>
+                            <td colspan="7" class="text-center">There are no matching issues.</td>
                         </tr>
                     </c:otherwise>
                 </c:choose>

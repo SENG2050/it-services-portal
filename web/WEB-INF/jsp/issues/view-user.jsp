@@ -33,16 +33,19 @@
                     <section class="css-section">
                         <h2 class="section-title">Comments</h2>
                         <ul class="list-unstyled">
-                            <li class="comment">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <label class="control-label" for="reply">Reply</label>
+                            <c:if test='${issue.getStatus().getTitle() != "Resolved" && issue.getStatus().getTitle() != "Knowledge Base"}'>
+                                <li class="comment">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <label class="control-label" for="reply">Reply</label>
 
-                                        <textarea class="form-control" rows="5" id="reply" name="reply"
-                                                  required="required" placeholder="Type your reply here..."></textarea>
+                                            <textarea class="form-control" rows="5" id="reply" name="reply"
+                                                      required="required"
+                                                      placeholder="Type your reply here..."></textarea>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
+                                </li>
+                            </c:if>
                             <c:forEach items="${issue.getComments()}" var="comment">
                                 <c:if test="${comment.isPublic()}">
                                     <li class="comment">
@@ -99,9 +102,11 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-block">
-                            Submit Comment
-                        </button>
+                        <c:if test='${issue.getStatus().getTitle() != "Resolved" && issue.getStatus().getTitle() != "Knowledge Base"}'>
+                            <button type="submit" class="btn btn-primary btn-block">
+                                Submit Comment
+                            </button>
+                        </c:if>
                     </section>
                 </div>
             </div>

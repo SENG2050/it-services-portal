@@ -22,6 +22,14 @@ public class Issues_ViewController extends BaseController {
         Issue issue = this.getPortalBean().getIssues().getIssueById(id);
         request.setAttribute("issue", issue);
 
+        Status_DBWrapper statusWrapper = this.getPortalBean().getStatuses();
+
+        statusWrapper.reset();
+        statusWrapper.addSort("id", "ASC");
+
+        Status[] statuses = statusWrapper.runQuery();
+        request.setAttribute("statuses", statuses);
+
         request.getRequestDispatcher("/WEB-INF/jsp/issues/view-admin.jsp").forward(request, response);
     }
 
