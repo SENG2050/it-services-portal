@@ -8,7 +8,9 @@ You will be prompted for credentials for Bitbucket, which we have used to keep t
 
 ## Configuring The System
 
-A Java ```config.properties``` file needs to be created and set with an appropriate ```baseURL``` value in the ```/WEB-INF/classes/config/``` folder. An example file has been added to ```src/config/config.properties.example``` which can be directly copied to ```src/config/config.properties``` during development.
+A Java ```config.properties``` file needs to be created and set with an appropriate ```baseURL``` value in the ```/WEB-INF/classes/config/``` folder.
+
+An example file has been added to ```src/config/config.properties.example``` which can be directly copied to ```src/config/config.properties``` during development.
 
 ## Getting Setup In IDEA
 
@@ -32,7 +34,9 @@ Then click on Apply and finally OK, and you can now run the project using Run > 
 
 ## Copying To Tomcat For Submission
 
-All that is required to submit the final compiled project is to copy the ```out/artifacts/it_services_portal_war_exploded``` folder to the Tomcat webapps folder, and rename it to ```c3063467_c3146986_c3198477_c3207772_FinalProject```. Finally, update the ```/WEB-INF/classes/config/config.properties``` file to have ```baseURL=http\://localhost\:8080/c3063467_c3146986_c3198477_c3207772_FinalProject/``` (trailing slash is required).
+All that is required to submit the final compiled project is to copy the ```out/artifacts/it_services_portal_war_exploded``` folder to the Tomcat webapps folder, and rename it to ```c3063467_c3146986_c3198477_c3207772_FinalProject```.
+
+Finally, update the ```/WEB-INF/classes/config/config.properties``` file to have ```baseURL=http\://localhost\:8080/c3063467_c3146986_c3198477_c3207772_FinalProject/``` (trailing slash is required).
 
 Please note that this is not required to develop the project, as IDEA will take care of deploying Tomcat for you as above.
 
