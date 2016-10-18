@@ -10,7 +10,7 @@
     <jsp:attribute name="breadcrumbs">
         <ol class="breadcrumb pull-right">
             <li>
-                <a href="/">Home</a>
+                <a href="${baseURL}">Home</a>
             </li>
             <li class="active">Issues</li>
         </ol>
@@ -18,7 +18,7 @@
     <jsp:body>
         <div class="panel panel-border">
             <div class="panel-body">
-                <form method="get" action="/issues/search" class="m-b-none">
+                <form method="get" action="${baseURL}issues/search" class="m-b-none">
                     <div class="row">
                         <div class="col-sm-2">
                             <select class="form-control" name="status">
@@ -158,7 +158,7 @@
                                 <td>${issue.getTitle()}</td>
                                 <td><fmt:formatDate type="both" value="${issue.getCreated()}"/></td>
                                 <td>
-                                    <a href="/issues/${issue.getIssueId()}"
+                                    <a href="${baseURL}issues/${issue.getIssueId()}"
                                        class="button button-primary button-small button-block">
                                         <i class="fa fa-fw fa-pencil"></i>
                                         View

@@ -19,6 +19,6 @@ public class LogoutController extends BaseController {
         this.setUser(null);
         this.setLoggedIn(false);
 
-        response.sendRedirect("/");
+        response.sendRedirect(this.getBaseURL());
     }
 }

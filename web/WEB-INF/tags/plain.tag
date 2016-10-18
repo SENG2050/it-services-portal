@@ -6,7 +6,6 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -14,24 +13,19 @@
         <jsp:invoke fragment="title"/>
     </title>
 
-    <meta name="description" content="">
-
-    <!-- This can be changed to our Tomcat folder prefix at submission time -->
-    <base href="/">
-
     <!-- CSS -->
-    <link href="theme/css/preload.css" rel="stylesheet">
-    <link href="theme/css/vendors.css" rel="stylesheet">
-    <link href="theme/css/syntaxhighlighter/shCore.css" rel="stylesheet">
-    <link href="theme/css/style-blue2.css" rel="stylesheet" title="default">
-    <link href="theme/css/width-full.css" rel="stylesheet" title="default">
+    <link href="${baseURL}theme/css/preload.css" rel="stylesheet">
+    <link href="${baseURL}theme/css/vendors.css" rel="stylesheet">
+    <link href="${baseURL}theme/css/syntaxhighlighter/shCore.css" rel="stylesheet">
+    <link href="${baseURL}theme/css/style-blue2.css" rel="stylesheet" title="default">
+    <link href="${baseURL}theme/css/width-full.css" rel="stylesheet" title="default">
 
-    <link href="css/it-services-portal.css" rel="stylesheet" title="default">
+    <link href="${baseURL}css/it-services-portal.css" rel="stylesheet" title="default">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script src="theme/js/html5shiv.min.js"></script>
-    <script src="theme/js/respond.min.js"></script>
+    <script src="${baseURL}theme/js/html5shiv.min.js"></script>
+    <script src="${baseURL}theme/js/respond.min.js"></script>
     <![endif]-->
 
     <jsp:invoke fragment="styles"/>
@@ -45,14 +39,14 @@
 <jsp:doBody/>
 
 <!-- Scripts -->
-<script src="theme/js/vendors.js"></script>
-<script src="theme/js/syntaxhighlighter/shCore.js"></script>
-<script src="theme/js/syntaxhighlighter/shBrushXml.js"></script>
-<script src="theme/js/syntaxhighlighter/shBrushJScript.js"></script>
-<script src="theme/js/DropdownHover.js"></script>
-<script src="theme/js/app.js"></script>
-<script src="theme/js/holder.js"></script>
-<script src="js/it-services-portal.js"></script>
+<script src="${baseURL}theme/js/vendors.js"></script>
+<script src="${baseURL}theme/js/syntaxhighlighter/shCore.js"></script>
+<script src="${baseURL}theme/js/syntaxhighlighter/shBrushXml.js"></script>
+<script src="${baseURL}theme/js/syntaxhighlighter/shBrushJScript.js"></script>
+<script src="${baseURL}theme/js/DropdownHover.js"></script>
+<script src="${baseURL}theme/js/app.js"></script>
+<script src="${baseURL}theme/js/holder.js"></script>
+<script src="${baseURL}js/it-services-portal.js"></script>
 <jsp:invoke fragment="scripts"/>
 </body>
 </html>

@@ -11,6 +11,6 @@ public class IndexController extends BaseController {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         super.doGet(request, response);
 
-        response.sendRedirect("/kb");
+        response.sendRedirect(this.getBaseURL() + "kb");
     }
 }

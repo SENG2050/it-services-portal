@@ -21,9 +21,9 @@ public class LoginController extends BaseController {
 
         // Check for redirect
         if (request.getParameter("r") != null) {
-            redirect = "/" + request.getParameter("r");
+            redirect = this.getBaseURL() + request.getParameter("r");
         } else {
-            redirect = "/";
+            redirect = this.getBaseURL();
         }
 
         if (this.isLoggedIn()) {
@@ -41,9 +41,9 @@ public class LoginController extends BaseController {
 
         // Check for redirect
         if (request.getParameter("r") != null) {
-            redirect = "/" + request.getParameter("r");
+            redirect = this.getBaseURL() + request.getParameter("r");
         } else {
-            redirect = "/";
+            redirect = this.getBaseURL();
         }
 
         if (this.isLoggedIn()) {

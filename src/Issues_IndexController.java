@@ -51,10 +51,10 @@ public class Issues_IndexController extends BaseController {
 
                 request.getRequestDispatcher("/WEB-INF/jsp/issues/index.jsp").forward(request, response);
             } else {
-                response.sendRedirect("/");
+                response.sendRedirect(this.getBaseURL());
             }
         } else {
-            response.sendRedirect("/login");
+            response.sendRedirect(this.getBaseURL() + "login");
         }
     }
 }

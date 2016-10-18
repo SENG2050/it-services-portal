@@ -10,7 +10,7 @@
         <h1 class="section-title text-center no-margin-top">Support Center</h1>
         <div class="panel panel-border">
             <div class="panel-body">
-                <form method="get" action="/kb/search" class="m-b-none">
+                <form method="get" action="${baseURL}kb/search" class="m-b-none">
                     <div class="input-group">
                         <input type="text" class="form-control input-lg" value="${term}"
                                placeholder="Have a question? Ask or enter a search term here..." name="term"
@@ -32,7 +32,7 @@
                         <div class="col-md-6">
                             <h3 class="no-margin-top">${issue.getCategory().getTitle()}</h3>
                             <ul class="list-line">
-                                <li><a href="/kb/${issue.getIssueId()}">${issue.getTitle()}</a></li>
+                                <li><a href="${baseURL}kb/${issue.getIssueId()}">${issue.getTitle()}</a></li>
                             </ul>
                         </div>
                     </c:forEach>

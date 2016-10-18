@@ -9,10 +9,10 @@
     <jsp:attribute name="breadcrumbs">
         <ol class="breadcrumb pull-right">
             <li>
-                <a href="/">Home</a>
+                <a href="${baseURL}">Home</a>
             </li>
             <li>
-                <a href="/issues">Issues</a>
+                <a href="${baseURL}issues">Issues</a>
             </li>
             <li class="active">New Issue</li>
         </ol>

@@ -10,10 +10,10 @@
     <jsp:attribute name="breadcrumbs">
         <ol class="breadcrumb pull-right">
             <li>
-                <a href="/">Home</a>
+                <a href="${baseURL}">Home</a>
             </li>
             <li>
-                <a href="/kb">KnowledgeBase</a>
+                <a href="${baseURL}kb">KnowledgeBase</a>
             </li>
             <li class="active">Search Results For "${term}"</li>
         </ol>
@@ -55,7 +55,7 @@
                 </form>
             </div>
         </div>
-        <form method="get" action="/kb/search" class="m-b-none">
+        <form method="get" action="${baseURL}kb/search" class="m-b-none">
             <input type="hidden" name="term" value="${term}">
 
             <table class="table table-striped table-bordered">
@@ -98,7 +98,7 @@
                                 <td>${issue.getCategory().getTitle()}</td>
                                 <td><fmt:formatDate type="both" value="${issue.getResolved()}"/></td>
                                 <td>
-                                    <a href="/kb/${issue.getIssueId()}"
+                                    <a href="${baseURL}kb/${issue.getIssueId()}"
                                        class="button button-primary button-small button-block">
                                         <i class="fa fa-fw fa-pencil"></i>
                                         View
