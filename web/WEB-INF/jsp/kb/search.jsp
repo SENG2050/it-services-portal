@@ -121,7 +121,7 @@
                 </c:choose>
                 <c:if test="${articlesExist eq false && issues.size()>0}">
                     <tr>
-                        <td colspan="6" class="text-center">There are no Knowledge Base Articles found.</td>
+                        <td colspan="6" class="text-center">There are no Knowledge Base Articles found</td>
                     </tr>
                 </c:if>
                 </tbody>
