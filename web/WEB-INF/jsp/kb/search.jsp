@@ -94,16 +94,25 @@
                     <c:when test="${issues.size() > 0}">
                         <c:forEach items="${issues}" var="issue">
                             <tr>
-                                <td>${issue.getTitle()}</td>
-                                <td>${issue.getCategory().getTitle()}</td>
-                                <td><fmt:formatDate type="both" value="${issue.getResolved()}"/></td>
-                                <td>
-                                    <a href="${baseURL}kb/${issue.getIssueId()}"
-                                       class="button button-primary button-small button-block">
-                                        <i class="fa fa-fw fa-pencil"></i>
-                                        View
-                                    </a>
-                                </td>
+                                <c:choose>
+                                    <c:when test="${issue.isKBArticle()}">
+                                        <td>${issue.getTitle()}</td>
+                                        <td>${issue.getCategory().getTitle()}</td>
+                                        <td><fmt:formatDate type="both" value="${issue.getResolved()}"/></td>
+                                        <td>
+                                            <a href="${baseURL}kb/${issue.getIssueId()}"
+                                               class="button button-primary button-small button-block">
+                                                <i class="fa fa-fw fa-pencil"></i>
+                                                View
+                                            </a>
+                                        </td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <tr>
+                                            <td colspan="6" class="text-center">There are no Knowledge Base Articles found.</td>
+                                        </tr>
+                                    </c:otherwise>
+                                </c:choose>
                             </tr>
                         </c:forEach>
                     </c:when>

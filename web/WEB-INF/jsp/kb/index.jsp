@@ -4,7 +4,15 @@
 
 <t:page>
     <jsp:attribute name="title">
-        KB Index Page
+        Knowledge Base
+    </jsp:attribute>
+    <jsp:attribute name="breadcrumbs">
+        <ol class="breadcrumb pull-right">
+            <li>
+                <a href="${baseURL}">Home</a>
+            </li>
+            <li class="active">Knowledge Base</li>
+        </ol>
     </jsp:attribute>
     <jsp:body>
         <h1 class="section-title text-center no-margin-top">Support Center</h1>
@@ -27,12 +35,18 @@
                 <h2 class="right-line">Browse by Topic</h2>
             </div>
             <c:choose>
-                <c:when test="${issues.size() > 0}">
-                    <c:forEach items="${issues}" var="issue">
+                <c:when test="${categories.size() > 0}">
+                    <c:forEach items="${categories}" var="category">
                         <div class="col-md-6">
-                            <h3 class="no-margin-top">${issue.getCategory().getTitle()}</h3>
+                            <h3 class="no-margin-top">${category.getTitle()}</h3>
                             <ul class="list-line">
-                                <li><a href="${baseURL}kb/${issue.getIssueId()}">${issue.getTitle()}</a></li>
+                                <%--<c:choose>
+                                    <c:forEach items="${issues}" var="issue">
+                                            <c:when test="${issue.isKBArticle() && issue.getCategory().getId() == category.getId()}">
+                                                <li><a href="${baseURL}kb/${issue.getId()}">${issue.getTitle()}</a></li>
+                                            </c:when>
+                                    </c:forEach>
+                                </c:choose>--%>
                             </ul>
                         </div>
                     </c:forEach>
