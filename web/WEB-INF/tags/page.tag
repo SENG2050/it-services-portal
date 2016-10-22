@@ -112,6 +112,14 @@
         </header>
 
         <div class="container">
+            <c:if test='${notification != null && notification.equals("") == false}'>
+                <div class="alert alert-primary">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <strong><i class="fa fa-comments-o"></i></strong>
+                    ${notification}
+                </div>
+            </c:if>
+
             <jsp:doBody/>
         </div>
     </div>
