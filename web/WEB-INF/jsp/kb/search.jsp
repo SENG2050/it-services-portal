@@ -90,6 +90,7 @@
                 </tr>
                 </thead>
                 <tbody>
+                <c:set var="articlesExist" scope="request" value='false'/>
                 <c:choose>
                     <c:when test="${issues.size() > 0}">
                         <c:forEach items="${issues}" var="issue">
@@ -106,12 +107,8 @@
                                                 View
                                             </a>
                                         </td>
+                                        <c:set var="articlesExist" scope="request" value='true'/>
                                     </c:when>
-                                    <c:otherwise>
-                                        <tr>
-                                            <td colspan="6" class="text-center">There are no Knowledge Base Articles found.</td>
-                                        </tr>
-                                    </c:otherwise>
                                 </c:choose>
                             </tr>
                         </c:forEach>
@@ -122,6 +119,11 @@
                         </tr>
                     </c:otherwise>
                 </c:choose>
+                <c:if test="${articlesExist eq false && issues.size()>0}">
+                    <tr>
+                        <td colspan="6" class="text-center">There are no Knowledge Base Articles found.</td>
+                    </tr>
+                </c:if>
                 </tbody>
             </table>
         </form>
