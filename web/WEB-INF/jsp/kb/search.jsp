@@ -21,7 +21,7 @@
     <jsp:body>
         <div class="panel panel-border">
             <div class="panel-body">
-                <form method="get" action="/kb/search" class="m-b-none">
+                <form method="get" action="${baseURL}kb/search" class="m-b-none">
                     <div class="row">
                         <div class="col-sm-2">
                             <select class="form-control" name="category">
@@ -45,12 +45,15 @@
                                 </c:forEach>
                             </select>
                         </div>
-                    <div class="input-group">
-                        <input type="text" class="form-control input-lg" value="${term}"
-                               placeholder="Enter a search term..." name="term" required="required">
-                        <span class="input-group-btn">
-                            <button class="btn btn-ar btn-lg btn-primary" type="submit">Search</button>
-                        </span>
+                        <div class="col-sm-10">
+                            <div class="input-group">
+                                <input type="text" class="form-control input-lg" value="${term}"
+                                       placeholder="Enter a search term..." name="term" required="required">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-ar btn-lg btn-primary" type="submit">Search</button>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </form>
             </div>
