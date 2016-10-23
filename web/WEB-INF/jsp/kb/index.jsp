@@ -22,29 +22,15 @@
                     <div class="row">
                         <div class="col-sm-2">
                             <select class="form-control" name="category">
-                                <c:choose>
-                                    <c:when test='${category == null || category == "0"}'>
-                                        <option value="0" selected="selected">Any Category</option>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <option value="0">Any Category</option>
-                                    </c:otherwise>
-                                </c:choose>
+                                <option value="0" selected="selected">Any Category</option>
                                 <c:forEach items="${categories}" var="c">
-                                    <c:choose>
-                                        <c:when test='${category != null && category == c.getId().toString()}'>
-                                            <option value="${c.getId()}" selected="selected">${c.getTitle()}</option>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <option value="${c.getId()}">${c.getTitle()}</option>
-                                        </c:otherwise>
-                                    </c:choose>
+                                    <option value="${c.getId()}">${c.getTitle()}</option>
                                 </c:forEach>
                             </select>
                         </div>
                         <div class="col-sm-10">
                             <div class="input-group">
-                                <input type="text" class="form-control input-lg" value="${term}"
+                                <input type="text" class="form-control input-lg"
                                        placeholder="Enter a search term..." name="term" required="required">
                                 <span class="input-group-btn">
                                     <button class="btn btn-ar btn-lg btn-primary" type="submit">Search</button>
