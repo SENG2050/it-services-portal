@@ -8,6 +8,16 @@ var IssuesViewAdmin = {
     }
 };
 
+var IssuesViewUser = {
+    submitAs: function (status) {
+        var statusElement = document.getElementById('issueStatus');
+
+        statusElement.value = status;
+
+        document.viewForm.submit();
+    }
+};
+
 var IssuesNew = {
     updateIframe: debounce(
         function (description) {

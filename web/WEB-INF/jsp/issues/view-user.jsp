@@ -102,11 +102,34 @@
                             </div>
                         </div>
 
-                        <c:if test='${issue.getStatus().getTitle() != "Resolved" && issue.getStatus().getTitle() != "Knowledge Base"}'>
-                            <button type="submit" class="btn btn-primary btn-block">
-                                Submit Comment
-                            </button>
-                        </c:if>
+                        <input type="hidden" name="status" value="${issue.getStatus().getId()}" id="issueStatus"/>
+
+                        <c:choose>
+                            <c:when test='${issue.getStatus().getTitle() != "Completed" && issue.getStatus().getTitle() != "Resolved" && issue.getStatus().getTitle() != "Knowledge Base"}'>
+                                <button type="submit" class="btn btn-primary btn-block">
+                                    Submit Comment
+                                </button>
+                            </c:when>
+                            <c:when test='${issue.getStatus().getTitle() == "Completed"}'>
+                                <div class="btn-group btn-block">
+                                    <button type="button" class="btn btn-primary btn-block dropdown-toggle"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Submit <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <c:forEach items="${statuses}" var="status">
+                                            <c:if test='${status.getTitle() == "Resolved" || status.getTitle() == "Not Accepted"}'>
+                                                <li>
+                                                    <a href="javascript:void();"
+                                                       onclick="IssuesViewUser.submitAs(${status.getId()});">
+                                                        Submit as ${status.getTitle()}</a>
+                                                </li>
+                                            </c:if>
+                                        </c:forEach>
+                                    </ul>
+                                </div>
+                            </c:when>
+                        </c:choose>
                     </section>
                 </div>
             </div>
