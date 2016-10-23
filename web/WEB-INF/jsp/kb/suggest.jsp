@@ -19,7 +19,8 @@
 
                                 <p>${issue.getDescription()}</p>
 
-                                <a href="${baseURL}kb/${issue.getIssueId()}" target="_blank" class="btn btn-ar btn-default">
+                                <a href="${baseURL}kb/${issue.getIssueId()}" target="_blank"
+                                   class="btn btn-ar btn-default">
                                     <i class="fa fa-fw fa-search"></i>
                                     Read More
                                 </a>
