@@ -52,8 +52,8 @@
                             <h3 class="no-margin-top">${category.getTitle()}</h3>
                             <ul class="list-line">
                                     <%--<c:choose>
-                                        <c:forEach items="${issues}" var="issue">
-                                                <c:when test="${issue.isKBArticle() && issue.getCategory().getId() == category.getId()}">
+                                        <c:forEach items="${category.getIssues()}" var="issue">
+                                                <c:when test="${issue.isKBArticle()}">
                                                     <li><a href="${baseURL}kb/${issue.getId()}">${issue.getTitle()}</a></li>
                                                 </c:when>
                                         </c:forEach>
