@@ -5,7 +5,7 @@
 
 <t:page>
     <jsp:attribute name="title">
-
+        ${issue.getTitle()}
     </jsp:attribute>
     <jsp:attribute name="breadcrumbs">
         <ol class="breadcrumb pull-right">
@@ -19,26 +19,42 @@
         </ol>
     </jsp:attribute>
     <jsp:body>
-        <h2 class="section-title">${issue.getTitle()}</h2>
-        <h3>${issue.getCategory().getTitle()}</h3>
-        <h2 class="section-title">Description</h2>
-        <div class="panel panel-primary-dark">
-            <div class="panel-body">
-                <p>${issue.getDescription()}</p>
+        <div class="row">
+            <div class="col-md-9">
+                <section class="css-section">
+                    <h2 class="section-title">Description</h2>
+                    <div class="panel panel-primary-dark">
+                        <div class="panel-body">
+                            <p>${issue.getDescription()}</p>
+                        </div>
+                    </div>
+
+                    <h2 class="section-title">Resolution</h2>
+                    <div class="panel panel-primary-dark">
+                        <div class="panel-body">
+                            <p>${issue.getResolution()}</p>
+                        </div>
+                    </div>
+                </section>
             </div>
-        </div>
-        <h2 class="section-title">Resolution</h2>
-        <p>Time Resolved: <fmt:formatDate type="both" value="${issue.getResolved()}"/></p>
-        <div class="panel panel-primary-dark">
-            <div class="panel-body">
-                <p>${issue.getResolution()}</p>
-            </div>
-        </div>
-        <h2 class="section-title">Properties</h2>
-        <div class="panel panel-primary-dark">
-            <div class="panel-body">
-                <p>Article ID: ${issue.getIssueId()} - Resolution: <fmt:formatDate type="both" value="${issue.getResolved()}"/></p>
-                <p>Category: ${issue.getCategory().getTitle()}</p>
+            <div class="col-md-3">
+                <section class="css-section">
+                    <h2 class="section-title">Properties</h2>
+
+                    <div class="panel panel-primary-dark">
+                        <div class="panel-body">
+                            <dl>
+                                <c:if test="${issue.getResolved() != null}">
+                                    <dt>Time Resolved</dt>
+                                    <dd><fmt:formatDate type="both" value="${issue.getResolved()}"/></dd>
+                                </c:if>
+
+                                <dt>Category</dt>
+                                <dd>${issue.getCategory().getTitle()}</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     </jsp:body>
