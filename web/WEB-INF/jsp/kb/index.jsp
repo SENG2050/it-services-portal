@@ -51,13 +51,13 @@
                         <div class="col-md-6">
                             <h3 class="no-margin-top">${category.getTitle()}</h3>
                             <ul class="list-line">
-                                    <%--<c:choose>
-                                        <c:forEach items="${category.getIssues()}" var="issue">
-                                                <c:when test="${issue.isKBArticle()}">
-                                                    <li><a href="${baseURL}kb/${issue.getId()}">${issue.getTitle()}</a></li>
-                                                </c:when>
-                                        </c:forEach>
-                                    </c:choose>--%>
+                                <c:forEach items="${category.getIssues()}" var="issue">
+                                    <c:choose>
+                                        <c:when test="${issue.isKBArticle()}">
+                                            <li><a href="${baseURL}kb/${issue.getIssueId()}">${issue.getTitle()}</a></li>
+                                       </c:when>
+                                    </c:choose>
+                                </c:forEach>
                             </ul>
                         </div>
                     </c:forEach>
