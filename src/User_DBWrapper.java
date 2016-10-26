@@ -86,7 +86,7 @@ public class User_DBWrapper extends DBWrapper {
     @Override
     protected Map<String, String> mapObjectToUpdateValues() {
         Map<String, String> values = new HashMap<>();
-        values.put("values", "notification=" + this.user.hasNotification() + "" +
+        values.put("values", "notification=" + this.user.hasNotification() + ", " +
                 "notification_text='" + this.user.getNotificationText() + "'");
         return values;
     }

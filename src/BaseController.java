@@ -113,6 +113,7 @@ public class BaseController extends HttpServlet {
                 // Toggle flag on user
                 User user = this.getUser();
                 user.setNotification(false);
+                user.setNotificationText("");
                 this.portalBean.users.updateUser(user);
             }
         }
