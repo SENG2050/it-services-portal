@@ -20,7 +20,7 @@
     </jsp:attribute>
     <jsp:body>
         <h2 class="section-title">${issue.getTitle()}</h2>
-        <h3>Category: ${issue.getCategory().getTitle()}</h3>
+        <h3>${issue.getCategory().getTitle()}</h3>
         <h2 class="section-title">Description</h2>
         <div class="panel panel-primary-dark">
             <div class="panel-body">
