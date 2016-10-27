@@ -41,8 +41,6 @@ public class KB_SearchController extends BaseController {
 
             String sortBy = split[0];
             String direction = split[1];
-            System.out.println(sortBy);
-            System.out.println(direction);
             issueWrapper.addSort(sortBy, direction);
         }
 
