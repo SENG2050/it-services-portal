@@ -14,12 +14,26 @@ public class KB_ViewController extends BaseController {
         String path = request.getPathInfo();
         String[] pathParts = path.split("/");
 
-        int id = Integer.parseInt(pathParts[1]);
+        int id;
+        try{
+            id = Integer.parseInt(pathParts[1]);
+            Issue issue = this.getPortalBean().getIssues().getIssueById(id);
+            if(issue.isKBArticle()){
+                request.setAttribute("issue", issue);
 
-        Issue issue = this.getPortalBean().getIssues().getIssueById(id);
-        request.setAttribute("issue", issue);
+                request.getRequestDispatcher("/WEB-INF/jsp/kb/view.jsp").forward(request, response);
+            }
 
-        request.getRequestDispatcher("/WEB-INF/jsp/kb/view.jsp").forward(request, response);
+            else{
+                response.sendRedirect(this.getBaseURL());
+            }
+        }catch (Exception e){
+
+            e.printStackTrace();
+            response.sendRedirect(this.getBaseURL());
+        }
+
+
 
     }
 }
