@@ -1,11 +1,7 @@
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
 /**
  * LoginController
@@ -17,17 +13,8 @@ public class LoginController extends BaseController {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         super.doGet(request, response);
 
-        String redirect;
-
-        // Check for redirect
-        if (request.getParameter("r") != null) {
-            redirect = this.getBaseURL() + request.getParameter("r");
-        } else {
-            redirect = this.getBaseURL();
-        }
-
         if (this.isLoggedIn()) {
-            response.sendRedirect(redirect);
+            response.sendRedirect(this.getBaseURL());
         } else {
             getServletContext().getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
         }
@@ -40,8 +27,11 @@ public class LoginController extends BaseController {
         String redirect;
 
         // Check for redirect
-        if (request.getParameter("r") != null) {
-            redirect = this.getBaseURL() + request.getParameter("r");
+        if (request.getSession().getAttribute("r") != null) {
+            // Get redirect param
+            redirect = this.getSession().getAttribute("r").toString();
+            // Clear from session
+            this.getSession().setAttribute("r", null);
         } else {
             redirect = this.getBaseURL();
         }

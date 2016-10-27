@@ -1,3 +1,4 @@
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,7 +55,9 @@ public class Issues_IndexController extends BaseController {
                 response.sendRedirect(this.getBaseURL());
             }
         } else {
-            response.sendRedirect(this.getBaseURL() + "login");
+            request.getSession().setAttribute("r", "issues");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/login");
+            dispatcher.forward(request, response);
         }
     }
 }
