@@ -10,16 +10,22 @@ import java.io.IOException;
 public class Issues_NewController extends BaseController {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         super.doGet(request, response);
+        if (this.isLoggedIn()) {
+            Category_DBWrapper categoryWrapper = this.getPortalBean().getCategories();
 
-        Category_DBWrapper categoryWrapper = this.getPortalBean().getCategories();
+            categoryWrapper.reset();
+            categoryWrapper.addSort("title", "ASC");
 
-        categoryWrapper.reset();
-        categoryWrapper.addSort("title", "ASC");
+            Category[] categories = categoryWrapper.runQuery();
+            request.setAttribute("categories", categories);
 
-        Category[] categories = categoryWrapper.runQuery();
-        request.setAttribute("categories", categories);
+            request.getRequestDispatcher("/WEB-INF/jsp/issues/new.jsp").forward(request, response);
+        }
+        else{
+            response.sendRedirect(this.getBaseURL() + "login");
+        }
 
-        request.getRequestDispatcher("/WEB-INF/jsp/issues/new.jsp").forward(request, response);
+
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
