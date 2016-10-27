@@ -11,13 +11,13 @@ public class KB_IndexController extends BaseController {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         super.doGet(request, response);
 
-        Issue_DBWrapper issueWrapper = this.getPortalBean().getIssues();
+        Category_DBWrapper categoryWrapper = this.getPortalBean().getCategories();
 
-        issueWrapper.reset();
+        categoryWrapper.reset();
 
-        List<Issue> issues = Arrays.asList(issueWrapper.getIssues());
+        List<Category> categories = Arrays.asList(categoryWrapper.getCategories());
 
-        request.setAttribute("issues", issues);
+        request.setAttribute("categories", categories);
 
         request.getRequestDispatcher("/WEB-INF/jsp/kb/index.jsp").forward(request, response);
     }
