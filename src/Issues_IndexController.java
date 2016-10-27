@@ -1,4 +1,6 @@
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -13,47 +15,60 @@ public class Issues_IndexController extends BaseController {
         super.doGet(request, response);
 
         if (this.isLoggedIn()) {
+            Issue_DBWrapper issueWrapper = this.getPortalBean().getIssues();
+
+            issueWrapper.reset();
+
+            String column = request.getParameter("column");
+            request.setAttribute("column", column);
+
+            if (column != null && column.equals("") == false) {
+                String[] split = column.split("\\|");
+
+                String sortBy = split[0];
+                String direction = split[1];
+
+                issueWrapper.addSort(sortBy, direction);
+            }
+
+            Status_DBWrapper statusWrapper = this.getPortalBean().getStatuses();
+
+            statusWrapper.reset();
+            statusWrapper.addSort("id", "ASC");
+
+            Status[] statuses = statusWrapper.runQuery();
+            request.setAttribute("statuses", statuses);
+
+            Category_DBWrapper categoryWrapper = this.getPortalBean().getCategories();
+
+            categoryWrapper.reset();
+            categoryWrapper.addSort("title", "ASC");
+
+            Category[] categories = categoryWrapper.runQuery();
+            request.setAttribute("categories", categories);
+
+
             if (this.getUser().isAdmin()) {
-                Issue_DBWrapper issueWrapper = this.getPortalBean().getIssues();
 
-                issueWrapper.reset();
-
-                String column = request.getParameter("column");
-                request.setAttribute("column", column);
-
-                if (column != null && column.equals("") == false) {
-                    String[] split = column.split("\\|");
-
-                    String sortBy = split[0];
-                    String direction = split[1];
-
-                    issueWrapper.addSort(sortBy, direction);
-                }
 
                 List<Issue> issues = Arrays.asList(issueWrapper.runQuery());
                 request.setAttribute("issues", issues);
 
-                Status_DBWrapper statusWrapper = this.getPortalBean().getStatuses();
-
-                statusWrapper.reset();
-                statusWrapper.addSort("id", "ASC");
-
-                Status[] statuses = statusWrapper.runQuery();
-                request.setAttribute("statuses", statuses);
-
-                Category_DBWrapper categoryWrapper = this.getPortalBean().getCategories();
-
-                categoryWrapper.reset();
-                categoryWrapper.addSort("title", "ASC");
-
-                Category[] categories = categoryWrapper.runQuery();
-                request.setAttribute("categories", categories);
-
                 request.getRequestDispatcher("/WEB-INF/jsp/issues/index.jsp").forward(request, response);
             } else {
-                response.sendRedirect(this.getBaseURL());
+
+                List<Issue> issues = Arrays.asList(issueWrapper.getIssuesbyUserId(this.getUser().getUserId()));
+                request.setAttribute("issues", issues);
+
+
+                request.getRequestDispatcher("/WEB-INF/jsp/issues/index.jsp").forward(request, response);
             }
         } else {
+
+
+            //request.setAttribute("r", "/issues");
+            //request.getParameterMap().put("r", new String[]{"/issues"});
+            //request.getRequestDispatcher("/login").forward(request,response);
             response.sendRedirect(this.getBaseURL() + "login");
         }
     }
