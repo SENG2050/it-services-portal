@@ -74,13 +74,13 @@
                         Time Resolved
                         <span class="pull-right">
                             <c:choose>
-                                <c:when test='${column == "time-resolved|asc"}'>
-                                    <button type="submit" class="btn btn-link" name="column" value="time-resolved|DESC">
+                                <c:when test='${column == "resolved|ASC"}'>
+                                    <button type="submit" class="btn btn-link" name="column" value="resolved|DESC">
                                         <i class="fa fa-fw fa-sort"></i>
                                     </button>
                                 </c:when>
                                 <c:otherwise>
-                                    <button type="submit" class="btn btn-link" name="column" value="time-resolved|ASC">
+                                    <button type="submit" class="btn btn-link" name="column" value="resolved|ASC">
                                         <i class="fa fa-fw fa-sort"></i>
                                     </button>
                                 </c:otherwise>
