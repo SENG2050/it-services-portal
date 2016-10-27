@@ -18,7 +18,7 @@ public class KB_ViewController extends BaseController {
         try{
             id = Integer.parseInt(pathParts[1]);
             Issue issue = this.getPortalBean().getIssues().getIssueById(id);
-            if(issue.isKBArticle()){
+            if(issue!=null && issue.isKBArticle()){
                 request.setAttribute("issue", issue);
 
                 request.getRequestDispatcher("/WEB-INF/jsp/kb/view.jsp").forward(request, response);
