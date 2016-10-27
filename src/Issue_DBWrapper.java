@@ -34,6 +34,18 @@ public class Issue_DBWrapper extends DBWrapper {
     }
 
     /**
+     * getIssuesbyUserId()
+     * Returns a list of all issues in database
+     * @param userId int
+     * @return Issue[]
+     */
+    public Issue[] getIssuesbyUserId(int userId) {
+        List<Object> data = this.getManyBy("userId", userId);
+
+        return (Issue[]) data.toArray(new Issue[data.size()]);
+    }
+
+    /**
      * getById()
      * Returns the status with a matching id
      *
