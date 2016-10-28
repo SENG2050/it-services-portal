@@ -17,20 +17,35 @@ public class Issues_ViewController extends BaseController {
         String path = request.getPathInfo();
         String[] pathParts = path.split("/");
 
-        int id = Integer.parseInt(pathParts[1]);
+        int id;
+        try {
+            id  = Integer.parseInt(pathParts[1]);
 
-        Issue issue = this.getPortalBean().getIssues().getIssueById(id);
-        request.setAttribute("issue", issue);
+            Issue issue = this.getPortalBean().getIssues().getIssueById(id);
+            if(issue!=null){
 
-        Status_DBWrapper statusWrapper = this.getPortalBean().getStatuses();
+                request.setAttribute("issue", issue);
 
-        statusWrapper.reset();
-        statusWrapper.addSort("id", "ASC");
+                Status_DBWrapper statusWrapper = this.getPortalBean().getStatuses();
 
-        Status[] statuses = statusWrapper.runQuery();
-        request.setAttribute("statuses", statuses);
+                statusWrapper.reset();
+                statusWrapper.addSort("id", "ASC");
 
-        request.getRequestDispatcher("/WEB-INF/jsp/issues/view-admin.jsp").forward(request, response);
+                Status[] statuses = statusWrapper.runQuery();
+                request.setAttribute("statuses", statuses);
+
+                request.getRequestDispatcher("/WEB-INF/jsp/issues/view-admin.jsp").forward(request, response);
+            }
+            else {
+                response.sendRedirect(this.getBaseURL() + "issues");
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            response.sendRedirect(this.getBaseURL()+"issues");
+        }
+
+
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
