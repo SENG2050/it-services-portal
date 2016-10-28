@@ -88,8 +88,9 @@ public class Issue {
     }
 
     public void setStatus(int status) {
-        status = status;
+        this.status = status;
     }
+    public int getStatusId(){return status;}
 
     public Date getCreated() {
         return created;
@@ -126,6 +127,11 @@ public class Issue {
         this.category_wrapper.reset();
         return this.category_wrapper.getCategoryById(this.category);
     }
+
+    public int getCategoryId(){
+        return this.category;
+    }
+
 
     /**
      * getStatus
