@@ -37,6 +37,18 @@
                     </select>
                 </div>
             </div>
+
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="issueTitle">Issue Title</label>
+
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="issueTitle" required="required"
+                              id="issueTitle" placeholder="Type your issue title here..."
+                              onkeyup="IssuesNew.relatedArticles();"${title}/>
+
+                    <span class="help-block">Please be as descriptive as possible to get the best possible response.</span>
+                </div>
+            </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="description">Issue Description</label>
 
