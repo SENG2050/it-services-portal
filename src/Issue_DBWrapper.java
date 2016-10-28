@@ -174,20 +174,36 @@ public class Issue_DBWrapper extends DBWrapper {
 
     /**
      * Maps an Issue to an SQL insert statement
+     * This is where a new issue is created
      * @return
      */
     @Override
     protected Map<String, String> mapObjectToInsertValues() {
         Map<String, String> values = new HashMap<>();
-        values.put("columns", "title, description, resolution, category, userId, status, created, resolved");
+        values.put("columns", "title, description, resolution, category, userId, status, created");
         values.put("values", "'" + this.issue.getTitle() + "', " +
                 "'" + this.issue.getDescription() + "', " +
                 "'" + this.issue.getResolution() + "', " +
-                this.issue.getCategory() + ", " +
+                this.issue.getCategoryId() + ", " +
                 this.issue.getUserId() + ", " +
-                this.issue.getStatus() + ", " +
-                "'" + this.issue.getCreated() + "', " +
-                "'" + this.issue.getResolved() + "'");
+                this.issue.getStatusId() + ", " +
+                "'" + this.issue.getCreated() + "'");
         return values;
     }
+
+
+//    @Override
+//    protected Map<String, String> mapObjectToInsertValues() {
+//        Map<String, String> values = new HashMap<>();
+//        values.put("columns", "title, description, resolution, category, userId, status, created, resolved");
+//        values.put("values", "'" + this.issue.getTitle() + "', " +
+//                "'" + this.issue.getDescription() + "', " +
+//                "'" + this.issue.getResolution() + "', " +
+//                this.issue.getCategory() + ", " +
+//                this.issue.getUserId() + ", " +
+//                this.issue.getStatus() + ", " +
+//                "'" + this.issue.getCreated() + "', " +
+//                "'" + this.issue.getResolved() + "'");
+//        return values;
+//    }
 }
