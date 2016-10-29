@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
@@ -27,7 +28,7 @@ public class BaseController extends HttpServlet {
 
         try {
             this.properties.load(this.getClass().getResourceAsStream("/config/config.properties"));
-        } catch(IOException ex) {
+        } catch (IOException ex) {
             System.out.println("The system could not find the config.properties file.");
         }
 
@@ -121,5 +122,27 @@ public class BaseController extends HttpServlet {
         request.setAttribute("user", this.getUser());
         request.setAttribute("loggedIn", this.isLoggedIn());
         request.setAttribute("baseURL", this.getBaseURL());
+    }
+
+    protected boolean checkPermissionsAndRedirect(HttpServletRequest request, HttpServletResponse response, boolean loggedIn, boolean user, boolean admin) throws java.io.IOException {
+        if (loggedIn) {
+            if (this.isLoggedIn()) {
+                if (user && this.getUser().isUser()) {
+                    return true;
+                } else if (admin && this.getUser().isAdmin()) {
+                    return true;
+                } else {
+                    response.sendRedirect(this.getBaseURL());
+
+                    return false;
+                }
+            } else {
+                response.sendRedirect(this.getBaseURL() + "login?r=" + URLEncoder.encode(request.getRequestURL() + "?" + request.getQueryString(), "UTF-8"));
+
+                return false;
+            }
+        }
+
+        return true;
     }
 }
