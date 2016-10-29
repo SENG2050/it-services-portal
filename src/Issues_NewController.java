@@ -29,7 +29,9 @@ public class Issues_NewController extends BaseController {
             request.getRequestDispatcher("/WEB-INF/jsp/issues/new.jsp").forward(request, response);
         }
         else{
-            response.sendRedirect(this.getBaseURL() + "login");
+            request.getSession().setAttribute("r", "issues/new");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/login");
+            dispatcher.forward(request, response);
         }
 
 
