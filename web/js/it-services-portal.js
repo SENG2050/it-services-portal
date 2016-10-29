@@ -28,7 +28,7 @@ var IssuesNew = {
         300
     ),
     relatedArticles: function (status) {
-        var descriptionElement = document.getElementById('description');
+        var descriptionElement = document.getElementById('issueTitle');
 
         var description = descriptionElement.value;
 
