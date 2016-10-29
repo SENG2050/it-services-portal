@@ -44,7 +44,7 @@
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="issueTitle" required="required"
                               id="issueTitle" placeholder="Type your issue title here..."
-                              onkeyup="IssuesNew.relatedArticles();"${title}/>
+                              onkeyup="IssuesNew.relatedArticles();" value="${title}"/>
 
                     <span class="help-block">Please be as descriptive as possible to get the best possible response.</span>
                 </div>
