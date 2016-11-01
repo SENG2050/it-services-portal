@@ -44,7 +44,7 @@
                 <div class="col-sm-10">
                     <input type="text" class="form-control" name="issueTitle" required="required"
                               id="issueTitle" placeholder="Type your issue title here..."
-                              onkeyup="IssuesNew.relatedArticles();" value="${title}"/>
+                              onkeyup="IssuesNew.relatedArticles('${baseURL}');" value="${title}"/>
 
                     <span class="help-block">Please be as descriptive as possible to get the best possible response.</span>
                 </div>
@@ -54,8 +54,7 @@
 
                 <div class="col-sm-10">
                     <textarea class="form-control" rows="5" name="description" required="required"
-                              id="description" placeholder="Type your issue here..."
-                              onkeyup="IssuesNew.relatedArticles();">${description}</textarea>
+                              id="description" placeholder="Type your issue here...">${description}</textarea>
 
                     <span class="help-block">Please be as descriptive as possible to get the best possible response.</span>
                 </div>

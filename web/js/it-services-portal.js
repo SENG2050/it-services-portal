@@ -20,19 +20,19 @@ var IssuesViewUser = {
 
 var IssuesNew = {
     updateIframe: debounce(
-        function (description) {
+        function (baseURL, description) {
             var iframeElement = document.getElementById('related-articles');
 
-            iframeElement.src = '/kb/suggest?term=' + encodeURIComponent(description);
+            iframeElement.src = baseURL + 'kb/suggest?term=' + encodeURIComponent(description);
         },
         300
     ),
-    relatedArticles: function (status) {
+    relatedArticles: function (baseURL) {
         var descriptionElement = document.getElementById('issueTitle');
 
         var description = descriptionElement.value;
 
-        this.updateIframe(description);
+        this.updateIframe(baseURL, description);
     }
 };
 
