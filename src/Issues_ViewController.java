@@ -112,55 +112,29 @@ public class Issues_ViewController extends BaseController {
 
         if(currentState!=null){
 
-            if(request.getParameter("status")!="8"){
-                Calendar calendar = Calendar.getInstance();
-                java.sql.Date startDate = new java.sql.Date(calendar.getTime().getTime());
+            String status = request.getParameter("status");
+            String commentPara = request.getParameter("reply");
+            //when they submit with status and comment
+            if(status !=null && commentPara!=null){
 
-
-                Comment_DBWrapper comment_dbWrapper = this.getPortalBean().getComments();
-
-                String commentPara = request.getParameter("reply");
-                if(!"".equals(commentPara) && commentPara.trim().length() != 0){
-
-                    Comment comment = new Comment();
-                    comment.setIssueId(currentState.getIssueId());
-                    comment.setUserId(this.getUser().getUserId());
-
-
-                    comment.setComment(commentPara);
-
-                    comment.setCreated(startDate);
-
-
-
-                    if(this.getUser().isAdmin()){
-                        comment.setPublic(Integer.parseInt(request.getParameter("public")) !=0);
-                    }
-                    else{
-                        comment.setPublic(false);
-                    }
-
-                    //create new comment
-                    comment_dbWrapper.createNewComment(comment); // it will throw null exceptions here
-
-                    //update issue status
-
-                    currentState.setStatus(Integer.parseInt(request.getParameter("status")));
-                    issue_dbWrapper.updateIssue(currentState); //maybe here too
-
-                }
-                else {
-                    response.sendRedirect(this.getBaseURL()+"issues/"+id);
-                }
+                process(request,response,issue_dbWrapper, currentState,commentPara,true);
 
             }
-            //when the admin marks it as KB, there there will be no comment submitted
-            else {
-                currentState.setStatus(Integer.parseInt(request.getParameter("status")));
+            //if the status is 8, then there will be no comment, admin marks the issue as kb
+            else if(status!=null && commentPara == null){
+                currentState.setStatus(Integer.parseInt(status));
                 issue_dbWrapper.updateIssue(currentState);
-            }
 
-            response.sendRedirect(this.getBaseURL()+"issues");
+                response.sendRedirect(this.getBaseURL()+"issues");
+            }
+            // comment will be submitted but status is not available, this is the case when the user submit their comment
+            // not when he accepts or rejects the resolution when the admin marks it as completed.
+            else if(status==null && commentPara != null){
+                process(request,response,issue_dbWrapper, currentState,commentPara,false);
+            }
+            else {
+                response.sendRedirect(this.getBaseURL()+"issues");
+            }
 
 
         }
@@ -169,4 +143,50 @@ public class Issues_ViewController extends BaseController {
         }
 
     }
+
+    protected void process(HttpServletRequest request, HttpServletResponse
+            response,Issue_DBWrapper dbWrapper,Issue currentState, String commentPar, boolean isStatusSupplied) throws ServletException, IOException {
+
+        Calendar calendar = Calendar.getInstance();
+        java.sql.Date startDate = new java.sql.Date(calendar.getTime().getTime());
+
+        Comment_DBWrapper comment_dbWrapper = this.getPortalBean().getComments();
+
+        //String commentPara = request.getParameter("reply");
+        if(!"".equals(commentPar) && commentPar.trim().length() != 0){
+
+            Comment comment = new Comment();
+            comment.setIssueId(currentState.getIssueId());
+            comment.setUserId(this.getUser().getUserId());
+
+            comment.setComment(commentPar);
+
+            comment.setCreated(startDate);
+
+            if(this.getUser().isAdmin()){
+                comment.setPublic(Integer.parseInt(request.getParameter("public")) !=0);
+            }
+            else{
+                comment.setPublic(false);
+            }
+
+            //create new comment
+            comment_dbWrapper.createNewComment(comment); // it will throw null exceptions here
+
+            //update issue status
+
+            if(isStatusSupplied){
+                currentState.setStatus(Integer.parseInt(request.getParameter("status")));
+                dbWrapper.updateIssue(currentState);
+            }
+
+            response.sendRedirect(this.getBaseURL()+"issues");
+
+        }
+        else {
+            response.sendRedirect(this.getBaseURL()+"issues/"+ currentState.getIssueId());
+        }
+    }
 }
+
+
