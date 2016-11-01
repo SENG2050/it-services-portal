@@ -34,7 +34,12 @@ public class Issues_ViewController extends BaseController {
                 Status[] statuses = statusWrapper.runQuery();
                 request.setAttribute("statuses", statuses);
 
-                request.getRequestDispatcher("/WEB-INF/jsp/issues/view-admin.jsp").forward(request, response);
+                if(this.getUser().isAdmin()){
+                    request.getRequestDispatcher("/WEB-INF/jsp/issues/view-admin.jsp").forward(request, response);
+                }
+                else{
+                    request.getRequestDispatcher("/WEB-INF/jsp/issues/view-user.jsp").forward(request, response);
+                }
             }
             else {
                 response.sendRedirect(this.getBaseURL() + "issues");
