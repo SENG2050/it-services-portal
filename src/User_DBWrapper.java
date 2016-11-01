@@ -79,6 +79,10 @@ public class User_DBWrapper extends DBWrapper {
         return this.updateRow(user.getUserId());
     }
 
+    public boolean setAdminNotification(boolean flag, String notification) {
+        return this.updateRows("ROLE", 1, "notification=" + flag + ", notification_text='" + notification + "'");
+    }
+
     /**
      * Maps an User to an SQL update statement
      * @return

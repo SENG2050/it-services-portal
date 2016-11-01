@@ -17,7 +17,11 @@ public class Comment {
     private User_DBWrapper user_dbWrapper;
 
     public Comment() {
-        this(0, 0, 0, true, "", new Date(1/1/00));
+        this(0, 0, true, "", new Date(1/1/00));
+    }
+
+    public Comment(int issueId, int userId, boolean isPublic, String comment, Date created) {
+        this(0, issueId, userId, isPublic, comment, created);
     }
 
     public Comment(int commentId, int issueId, int userId, boolean isPublic, String comment, Date created) {
@@ -27,7 +31,6 @@ public class Comment {
         this.isPublic = isPublic;
         this.comment = comment;
         this.created = created;
-
         this.user_dbWrapper = new User_DBWrapper();
     }
 

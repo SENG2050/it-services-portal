@@ -144,9 +144,9 @@ public class Comment_DBWrapper extends DBWrapper {
     @Override
     protected Map<String, String> mapObjectToInsertValues() {
         Map<String, String> values = new HashMap<>();
-        values.put("columns", "issueId, comment, created");
+        values.put("columns", "issueId, user, comment, public, created");
         values.put("values", this.comment.getIssueId() + ", " +
-                this.comment.getIssueId() + ", " +
+                this.comment.getUser().getUserId() + ", " +
                 "'" + this.comment.getComment() + "', " +
                 this.comment.isPublic() + ", " +
                 "'" + this.comment.getCreated() + "'");

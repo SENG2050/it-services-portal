@@ -1,10 +1,10 @@
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.*;
+import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Admin: Allows the admin to view the given issue, change state, add comments, mark as KB article, etc
@@ -17,10 +17,12 @@ public class Issues_ViewController extends BaseController {
         String path = request.getPathInfo();
         String[] pathParts = path.split("/");
 
+        // Get issue id from url and test
         int id;
         try {
             id  = Integer.parseInt(pathParts[1]);
         } catch (NumberFormatException ex) {
+            // Send 404
             response.sendError(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
@@ -28,15 +30,18 @@ public class Issues_ViewController extends BaseController {
         if (this.isLoggedIn()) {
             try {
                 Issue issue = this.getPortalBean().getIssues().getIssueById(id);
+                // Only admin or reporter can view
+                if (this.getUser().isUser() && this.getUser().getUserId() != issue.getUserId()) {
+                    this.setErrorNotification("Unable to access this issue. Only Admin or the original reporter can access an issue.");
+                    response.sendRedirect(this.getBaseURL() + "/issue");
+                    return;
+                }
+
                 if(issue!=null){
-
                     request.setAttribute("issue", issue);
-
                     Status_DBWrapper statusWrapper = this.getPortalBean().getStatuses();
-
                     statusWrapper.reset();
                     statusWrapper.addSort("id", "ASC");
-
                     Status[] statuses = statusWrapper.runQuery();
                     request.setAttribute("statuses", statuses);
 
@@ -65,21 +70,6 @@ public class Issues_ViewController extends BaseController {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         super.doPost(request, response);
 
-
-//        System.out.println("Testub");
-//        //@TODO: Not sure how the issue is being sent through here, so will just generate a dummy issue for now
-//        Issue updatedIssue = new Issue();
-//        // Update user on status change if needed
-//        Issue currentState = this.portalBean.issues.getIssueById(updatedIssue.getIssueId());
-//        if (updatedIssue.getIssueId() != currentState.getIssueId()) {
-//            // Notify reporter
-//            User reporter = this.portalBean.users.getById(updatedIssue.getUserId());
-//            reporter.setNotification(true);
-//            reporter.setNotificationText("Issue: #" + updatedIssue.getIssueId() + " has been updated.");
-//            this.portalBean.users.updateUser(reporter);
-//        }
-
-
         String path = request.getPathInfo();
         String[] pathParts = path.split("/");
 
@@ -91,101 +81,92 @@ public class Issues_ViewController extends BaseController {
             return;
         }
 
+        Issue currentState = this.getPortalBean().getIssues().getIssueById(id);
 
-        Issue currentState = null;
+        if(currentState != null){
 
-        Issue_DBWrapper issue_dbWrapper = this.getPortalBean().getIssues();
+            int status = Integer.parseInt(request.getParameter("status"));
+            String commentPara = request.getParameter("reply");
 
-        if(this.getUser().isAdmin()){
-            currentState = issue_dbWrapper.getIssueById(id);
-        }
-        else {
-            Issue[] allUserIssues = issue_dbWrapper.getIssuesbyUserId(this.getUser().getUserId());
+            // Check if status has changed
+            if (currentState.getStatus().getId() != status) {
+                // It has, so update
+                currentState.setStatus(status);
 
-            for (int m = 0; m <allUserIssues.length; m++) {
-                if(allUserIssues[m].getIssueId() == id){
-                    currentState = allUserIssues[m];
-                    break;
+                // Now check if status has been set to Completed
+                // If so, add resolved message
+                if (status == 5 && !commentPara.equals("")) {
+                    currentState.setResolution(commentPara);
+                    currentState.setResolved(new Timestamp(new Date().getTime()));
+                } else if (status == 5) {
+                    // Marked as completed but no resolution message
+                    // Send error to admin and return
+                    this.portalBean.getUsers().setAdminNotification(true, "Error: Issue was set as completed with no resolution message.  Please try again.");
+                    response.sendRedirect(request.getRequestURI());
+                    return;
+                }
+
+                // Now check if status has been set to Resolved or rejected
+                // Notify Admin
+                if (status == 6 || status == 7) {
+                    this.portalBean.getUsers().setAdminNotification(true, "Issue: " + currentState.getIssueId() + " has been updated.");
+                }
+
+                // Now notify reporter on all status change
+                User reporter = currentState.getUser();
+                reporter.setNotification(true);
+                reporter.setNotificationText("Issue: #" + currentState.getIssueId() + " has been updated.");
+                this.portalBean.users.updateUser(reporter);
+
+                // Finally update issue
+                try {
+                    this.portalBean.getIssues().updateIssue(currentState);
+                } catch (Exception ex) {
+                    this.setErrorNotification("There was an error updating this issue, please try again.");
+                    response.sendRedirect(request.getRequestURI());
+                    return;
+                }
+
+            }
+
+            // Now create comment if needed - note that we dont want to add if its a resolved message
+            if (status != 5 && !commentPara.equals("")) {
+                // Get public flag
+                boolean isPublic = false;
+                if (this.user.isAdmin()) {
+                    isPublic = (Integer.parseInt(request.getParameter("public")) != 0);
+                }
+                // Create new comment model
+                Comment newComment = new Comment(
+                        id,
+                        this.getUser().getUserId(),
+                        isPublic,
+                        commentPara,
+                        new Timestamp(new Date().getTime())
+                );
+                // Add comment to DB
+                try {
+                    this.portalBean.getComments().createNewComment(newComment);
+                } catch (Exception ex) {
+                    this.setErrorNotification("There was an error posting this comment, please try again.");
+                    response.sendRedirect(request.getRequestURI());
+                    return;
                 }
             }
-        }
 
-        if(currentState!=null){
-
-            String status = request.getParameter("status");
-            String commentPara = request.getParameter("reply");
-            //when they submit with status and comment
-            if(status !=null && commentPara!=null){
-
-                process(request,response,issue_dbWrapper, currentState,commentPara,true);
-
-            }
-            //if the status is 8, then there will be no comment, admin marks the issue as kb
-            else if(status!=null && commentPara == null){
-                currentState.setStatus(Integer.parseInt(status));
-                issue_dbWrapper.updateIssue(currentState);
-
-                response.sendRedirect(this.getBaseURL()+"issues");
-            }
-            // comment will be submitted but status is not available, this is the case when the user submit their comment
-            // not when he accepts or rejects the resolution when the admin marks it as completed.
-            else if(status==null && commentPara != null){
-                process(request,response,issue_dbWrapper, currentState,commentPara,false);
-            }
-            else {
-                response.sendRedirect(this.getBaseURL()+"issues");
-            }
-
-
+            response.sendRedirect(request.getRequestURI());
         }
         else {
-            response.sendRedirect(this.getBaseURL()+"issues");
+            // Issue doesnt exist, shouldnt be updating it
+            response.sendError(500);
         }
-
     }
 
-    protected void process(HttpServletRequest request, HttpServletResponse
-            response,Issue_DBWrapper dbWrapper,Issue currentState, String commentPar, boolean isStatusSupplied) throws ServletException, IOException {
-
-        Calendar calendar = Calendar.getInstance();
-        java.sql.Date startDate = new java.sql.Date(calendar.getTime().getTime());
-
-        Comment_DBWrapper comment_dbWrapper = this.getPortalBean().getComments();
-
-        //String commentPara = request.getParameter("reply");
-        if(!"".equals(commentPar) && commentPar.trim().length() != 0){
-
-            Comment comment = new Comment();
-            comment.setIssueId(currentState.getIssueId());
-            comment.setUserId(this.getUser().getUserId());
-
-            comment.setComment(commentPar);
-
-            comment.setCreated(startDate);
-
-            if(this.getUser().isAdmin()){
-                comment.setPublic(Integer.parseInt(request.getParameter("public")) !=0);
-            }
-            else{
-                comment.setPublic(false);
-            }
-
-            //create new comment
-            comment_dbWrapper.createNewComment(comment); // it will throw null exceptions here
-
-            //update issue status
-
-            if(isStatusSupplied){
-                currentState.setStatus(Integer.parseInt(request.getParameter("status")));
-                dbWrapper.updateIssue(currentState);
-            }
-
-            response.sendRedirect(this.getBaseURL()+"issues");
-
-        }
-        else {
-            response.sendRedirect(this.getBaseURL()+"issues/"+ currentState.getIssueId());
-        }
+    private void setErrorNotification(String msg) {
+        User user = this.getUser();
+        user.setNotification(true);
+        user.setNotificationText(msg);
+        this.portalBean.users.updateUser(user);
     }
 }
 

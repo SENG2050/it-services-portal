@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -51,11 +52,9 @@ public class Issues_NewController extends BaseController {
             issue.setDescription(request.getParameter("description"));
             issue.setCategory(Integer.parseInt(request.getParameter("category")));
             issue.setUserId(this.getUser().getUserId());
-
-            Calendar calendar = Calendar.getInstance();
-            java.sql.Date startDate = new java.sql.Date(calendar.getTime().getTime());
-
-            issue.setCreated(startDate);
+            issue.setCreated(new Timestamp(new Date().getTime()));
+            // Hacky way as updating dates with null is messy. Ok for this use
+            issue.setResolved(new Timestamp(new Date().getTime()));
 
             issue.setStatus(1); // As a new issue
 

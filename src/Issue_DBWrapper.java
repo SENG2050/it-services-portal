@@ -164,9 +164,9 @@ public class Issue_DBWrapper extends DBWrapper {
          values.put("values", "title='" + this.issue.getTitle() + "', " +
                 "description='" + this.issue.getDescription() + "', " +
                 "resolution='" + this.issue.getResolution() + "', " +
-                "category=" + this.issue.getCategory() + ", " +
+                "category=" + this.issue.getCategory().getId() + ", " +
                 "userId=" + this.issue.getUserId() + ", " +
-                "status=" + this.issue.getStatus() + ", " +
+                "status=" + this.issue.getStatus().getId() + ", " +
                 "created='" + this.issue.getCreated() + "', " +
                 "resolved='" + this.issue.getResolved() + "'");
         return values;

@@ -424,6 +424,31 @@ public class DBWrapper {
     }
 
     /**
+     * Updates rows in the DB based on a column value
+     * @return boolean
+     */
+    protected boolean updateRows(String column, int value, String update) {
+        // Open connection if not already opened
+        if (connection == null) {
+            open();
+        }
+
+        // Perform statement
+        try {
+            String query = "UPDATE " + this.getTableName() + " SET " +
+                    update + " WHERE " + column + "=" + value + ";";
+            PreparedStatement s = connection.prepareStatement(query);
+            int result = s.executeUpdate();
+            if (result == 1) {
+                return true;
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        }
+        return false;
+    }
+
+    /**
      * Updates a row in the database based on Id
      * @return boolean
      */
