@@ -18,6 +18,10 @@ public class Issues_NewController extends BaseController {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         super.doGet(request, response);
         if (this.isLoggedIn()) {
+            if (this.getUser().isAdmin()) {
+                response.sendRedirect(this.getBaseURL());
+                return;
+            }
             Category_DBWrapper categoryWrapper = this.getPortalBean().getCategories();
 
             categoryWrapper.reset();
