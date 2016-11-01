@@ -1,3 +1,4 @@
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,39 +19,43 @@ public class Issues_ViewController extends BaseController {
         String[] pathParts = path.split("/");
 
         int id;
-        try {
-            id  = Integer.parseInt(pathParts[1]);
+        id  = Integer.parseInt(pathParts[1]);
 
-            Issue issue = this.getPortalBean().getIssues().getIssueById(id);
-            if(issue!=null){
+        if (this.isLoggedIn()) {
+            try {
+                Issue issue = this.getPortalBean().getIssues().getIssueById(id);
+                if(issue!=null){
 
-                request.setAttribute("issue", issue);
+                    request.setAttribute("issue", issue);
 
-                Status_DBWrapper statusWrapper = this.getPortalBean().getStatuses();
+                    Status_DBWrapper statusWrapper = this.getPortalBean().getStatuses();
 
-                statusWrapper.reset();
-                statusWrapper.addSort("id", "ASC");
+                    statusWrapper.reset();
+                    statusWrapper.addSort("id", "ASC");
 
-                Status[] statuses = statusWrapper.runQuery();
-                request.setAttribute("statuses", statuses);
+                    Status[] statuses = statusWrapper.runQuery();
+                    request.setAttribute("statuses", statuses);
 
-                if(this.getUser().isAdmin()){
-                    request.getRequestDispatcher("/WEB-INF/jsp/issues/view-admin.jsp").forward(request, response);
+                    if(this.getUser().isAdmin()){
+                        request.getRequestDispatcher("/WEB-INF/jsp/issues/view-admin.jsp").forward(request, response);
+                    }
+                    else{
+                        request.getRequestDispatcher("/WEB-INF/jsp/issues/view-user.jsp").forward(request, response);
+                    }
                 }
-                else{
-                    request.getRequestDispatcher("/WEB-INF/jsp/issues/view-user.jsp").forward(request, response);
+                else {
+                    response.sendRedirect(this.getBaseURL() + "issues");
                 }
-            }
-            else {
-                response.sendRedirect(this.getBaseURL() + "issues");
-            }
 
-        }catch (Exception e){
-            e.printStackTrace();
-            response.sendRedirect(this.getBaseURL()+"issues");
+            }catch (Exception e){
+                e.printStackTrace();
+                response.sendRedirect(this.getBaseURL()+"issues");
+            }
+        } else {
+            request.getSession().setAttribute("r", "issues/" + id);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/login");
+            dispatcher.forward(request, response);
         }
-
-
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
