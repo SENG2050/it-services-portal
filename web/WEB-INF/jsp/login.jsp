@@ -21,10 +21,7 @@
     <jsp:body>
         <div class="paper-back-full">
             <div class="login-form-full">
-                <div class="fix-box">
-                    <div class="text-center title-logo animated fadeInDown animation-delay-5">
-                        artificial<span>reason</span>
-                    </div>
+                <div class="fix-box m-t-xl">
                     <div class="animated fadeInUp animation-delay-8">
                         <form role="form" method="post" action="${baseURL}login">
                             <div class="form-group">
