@@ -172,7 +172,7 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                         <c:forEach items="${statuses}" var="status">
-                                            <c:if test='${status.getTitle() != "Resolved" && status.getTitle() != "Not Accepted" && status.getTitle() != "Knowledge Base"}'>
+                                            <c:if test='${status.getTitle() != "New Issue" && status.getTitle() != "Resolved" && status.getTitle() != "Not Accepted" && status.getTitle() != "Knowledge Base"}'>
                                                 <li>
                                                     <a href="javascript:void();"
                                                        onclick="IssuesViewAdmin.submitAs(${status.getId()});">
