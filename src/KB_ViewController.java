@@ -15,8 +15,13 @@ public class KB_ViewController extends BaseController {
         String[] pathParts = path.split("/");
 
         int id;
+        try {
+            id  = Integer.parseInt(pathParts[1]);
+        } catch (NumberFormatException ex) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
         try{
-            id = Integer.parseInt(pathParts[1]);
             Issue issue = this.getPortalBean().getIssues().getIssueById(id);
             if(issue!=null && issue.isKBArticle()){
                 request.setAttribute("issue", issue);

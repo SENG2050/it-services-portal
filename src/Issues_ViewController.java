@@ -19,7 +19,12 @@ public class Issues_ViewController extends BaseController {
         String[] pathParts = path.split("/");
 
         int id;
-        id  = Integer.parseInt(pathParts[1]);
+        try {
+            id  = Integer.parseInt(pathParts[1]);
+        } catch (NumberFormatException ex) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
 
         if (this.isLoggedIn()) {
             try {
