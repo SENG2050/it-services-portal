@@ -52,8 +52,14 @@ public class Issues_SearchController extends BaseController {
             issueWrapper.addSort(sortBy, direction);
         }
 
-        List<Issue> issues = Arrays.asList(issueWrapper.runQuery());
-        request.setAttribute("issues", issues);
+        if(this.getUser().isAdmin()){
+            List<Issue> issues = Arrays.asList(issueWrapper.runQuery());
+            request.setAttribute("issues", issues);
+        }
+        else {
+            List<Issue> issues = Arrays.asList(issueWrapper.getIssuesbyUserId(this.getUser().getUserId()));
+            request.setAttribute("issues", issues);
+        }
 
         Status_DBWrapper statusWrapper = this.getPortalBean().getStatuses();
 
