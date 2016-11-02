@@ -50,8 +50,6 @@ public class Issues_NewController extends BaseController {
             issue.setCategory(Integer.parseInt(request.getParameter("category")));
             issue.setUserId(this.getUser().getUserId());
             issue.setCreated(new Timestamp(new Date().getTime()));
-            // Hacky way as updating dates with null is messy. Ok for this use
-            issue.setResolved(new Timestamp(new Date().getTime()));
 
             issue.setStatus(1); // As a new issue
 
