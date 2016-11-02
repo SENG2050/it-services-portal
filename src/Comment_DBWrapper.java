@@ -120,7 +120,7 @@ public class Comment_DBWrapper extends DBWrapper {
                     rs.getInt("user"),
                     rs.getBoolean("public"),
                     rs.getString("comment"),
-                    rs.getDate("created")
+                    rs.getTimestamp("created")
             );
         } catch (Exception ex) {
             System.out.println(ex.toString());

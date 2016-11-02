@@ -1,4 +1,4 @@
-import java.util.Date;
+import java.sql.Timestamp;
 
 /**
  * Issue
@@ -14,8 +14,8 @@ public class Issue {
     private int category;
     private int userId;
     private int status;
-    private Date created;
-    private Date resolved;
+    private Timestamp created;
+    private Timestamp resolved;
 
     private Comment_DBWrapper comment_wrapper;
     private Category_DBWrapper category_wrapper;
@@ -26,7 +26,7 @@ public class Issue {
 
     }
 
-    public Issue(int issueId, String title, String description, String resolution, int category, int userId, int status, Date created, Date resolved) {
+    public Issue(int issueId, String title, String description, String resolution, int category, int userId, int status, Timestamp created, Timestamp resolved) {
         this.issueId = issueId;
         this.title = title;
         this.description = description;
@@ -92,19 +92,19 @@ public class Issue {
     }
     public int getStatusId(){return status;}
 
-    public Date getCreated() {
+    public Timestamp getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(Timestamp created) {
         this.created = created;
     }
 
-    public Date getResolved() {
+    public Timestamp getResolved() {
         return resolved;
     }
 
-    public void setResolved(Date resolved) {
+    public void setResolved(Timestamp resolved) {
         this.resolved = resolved;
     }
 

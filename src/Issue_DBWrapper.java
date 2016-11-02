@@ -146,8 +146,8 @@ public class Issue_DBWrapper extends DBWrapper {
                     rs.getInt("category"),
                     rs.getInt("userId"),
                     rs.getInt("status"),
-                    rs.getDate("created"),
-                    rs.getDate("resolved")
+                    rs.getTimestamp("created"),
+                    rs.getTimestamp("resolved")
             );
         } catch (Exception ex) {
             System.out.println(ex.toString());

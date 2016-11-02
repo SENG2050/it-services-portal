@@ -1,3 +1,4 @@
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -12,19 +13,19 @@ public class Comment {
     private int userId;
     private boolean isPublic;
     private String comment;
-    private Date created;
+    private Timestamp created;
 
     private User_DBWrapper user_dbWrapper;
 
     public Comment() {
-        this(0, 0, true, "", new Date(1/1/00));
+        this(0, 0, true, "", new Timestamp(new Date().getTime()));
     }
 
-    public Comment(int issueId, int userId, boolean isPublic, String comment, Date created) {
+    public Comment(int issueId, int userId, boolean isPublic, String comment, Timestamp created) {
         this(0, issueId, userId, isPublic, comment, created);
     }
 
-    public Comment(int commentId, int issueId, int userId, boolean isPublic, String comment, Date created) {
+    public Comment(int commentId, int issueId, int userId, boolean isPublic, String comment, Timestamp created) {
         this.commentId = commentId;
         this.issueId = issueId;
         this.userId = userId;
@@ -58,11 +59,11 @@ public class Comment {
         this.comment = comment;
     }
 
-    public Date getCreated() {
+    public Timestamp getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(Timestamp created) {
         this.created = created;
     }
 
