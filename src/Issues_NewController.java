@@ -20,6 +20,7 @@ public class Issues_NewController extends BaseController {
                 response.sendRedirect(this.getBaseURL());
                 return;
             }
+
             Category_DBWrapper categoryWrapper = this.getPortalBean().getCategories();
 
             categoryWrapper.reset();
@@ -29,21 +30,17 @@ public class Issues_NewController extends BaseController {
             request.setAttribute("categories", categories);
 
             request.getRequestDispatcher("/WEB-INF/jsp/issues/new.jsp").forward(request, response);
-        }
-        else{
+        } else {
             request.getSession().setAttribute("r", "issues/new");
             RequestDispatcher dispatcher = request.getRequestDispatcher("/login");
             dispatcher.forward(request, response);
         }
-
-
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         super.doPost(request, response);
 
-
-        try{
+        try {
             Issue issue = new Issue();
             issue.setTitle(request.getParameter("issueTitle"));
             issue.setDescription(request.getParameter("description"));
@@ -57,32 +54,13 @@ public class Issues_NewController extends BaseController {
 
             boolean success = issue_dbWrapper.createNewIssue(issue);
 
-            if(success){
-                //request.getSession().setAttribute("successMessage", "Issue created!");
+            if (success) {
                 response.sendRedirect(this.getBaseURL() + "issues");
-            }
-            else {
-                //request.getSession().setAttribute("errorMessage", "Cannot create new issue. Please try again!");
+            } else {
                 response.sendRedirect(this.getBaseURL() + "issues/new");
             }
-
-
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-
         }
-
-
-
-        Map params = request.getParameterMap();
-        Iterator i = params.keySet().iterator();
-        while ( i.hasNext() )
-        {
-            String key = (String) i.next();
-            String value = ((String[]) params.get( key ))[ 0 ];
-            System.out.println(value);
-        }
-        //response.sendRedirect(this.getBaseURL() + "issues");
     }
 }

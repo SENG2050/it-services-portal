@@ -55,6 +55,12 @@
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
+                        <c:if test="${loggedIn}">
+                            <li>
+                                <p class="navbar-text">Logged in as ${user.getName()}</p>
+                            </li>
+                        </c:if>
+
                         <li>
                             <a href="${baseURL}kb">
                                 <i class="fa fa-fw fa-search"></i>
@@ -116,7 +122,7 @@
                 <div class="alert alert-primary">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                     <strong><i class="fa fa-comments-o"></i></strong>
-                    ${notification}
+                        ${notification}
                 </div>
             </c:if>
 

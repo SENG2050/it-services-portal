@@ -349,3 +349,14 @@
 .full-width {
     width: 100%;
 }
+
+.navbar-inverse .navbar-text {
+    color: #FFFFFF;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 767px) {
+    .navbar-inverse .navbar-text {
+        padding-left: 15px;
+    }
+}
