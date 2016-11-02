@@ -55,10 +55,12 @@
                             </div>
                         </div>
                     </div>
+                    <input type="hidden" name="column" value="${column}">
                 </form>
             </div>
         </div>
         <form method="get" action="${baseURL}kb/search" class="m-b-none">
+            <input type="hidden" name="category" value="${category}">
             <input type="hidden" name="term" value="${term}">
 
             <table class="table table-striped table-bordered">
