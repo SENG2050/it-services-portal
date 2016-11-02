@@ -413,6 +413,9 @@ public class DBWrapper {
                     "VALUES (" +
                     this.mapObjectToInsertValues().get("values") + ");";
             PreparedStatement s = connection.prepareStatement(query);
+
+            System.out.println(s.toString());
+
             int result = s.executeUpdate();
             if (result == 1) {
                 return true;
@@ -438,6 +441,9 @@ public class DBWrapper {
             String query = "UPDATE " + this.getTableName() + " SET " +
                     update + " WHERE " + column + "=" + value + ";";
             PreparedStatement s = connection.prepareStatement(query);
+
+            System.out.println(s.toString());
+
             int result = s.executeUpdate();
             if (result == 1) {
                 return true;
@@ -463,6 +469,9 @@ public class DBWrapper {
             String query = "UPDATE " + this.getTableName() + " SET " +
                     this.mapObjectToUpdateValues().get("values") + " WHERE ID=" + id + ";";
             PreparedStatement s = connection.prepareStatement(query);
+
+            System.out.println(s.toString());
+
             int result = s.executeUpdate();
             if (result == 1) {
                 return true;
@@ -491,6 +500,9 @@ public class DBWrapper {
             String query = "DELETE FROM " + this.getTableName() + " WHERE id = ?";
             PreparedStatement s = connection.prepareStatement(query);
             s.setInt(1, id);
+
+            System.out.println(s.toString());
+
             int result = s.executeUpdate();
             if (result == 1) {
                 return true;
