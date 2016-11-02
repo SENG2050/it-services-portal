@@ -27,6 +27,15 @@
             </div>
         </section>
 
+        <c:if test='${issue.getResolution() != null && issue.getResolution().equals("") == false && issue.getResolution().equals("null") == false}'>
+            <h2 class="section-title">Resolution</h2>
+            <div class="panel panel-primary-dark">
+                <div class="panel-body">
+                    <p>${issue.getResolution()}</p>
+                </div>
+            </div>
+        </c:if>
+
         <form method="post" name="viewForm">
             <div class="row">
                 <div class="col-md-9">
@@ -40,7 +49,6 @@
                                             <label class="control-label" for="reply">Reply</label>
 
                                             <textarea class="form-control" rows="5" id="reply" name="reply"
-                                                      required="required"
                                                       placeholder="Type your reply here..."></textarea>
                                         </div>
                                     </div>
@@ -88,7 +96,7 @@
                                     <dt>Time Created</dt>
                                     <dd><fmt:formatDate type="both" value="${issue.getCreated()}"/></dd>
 
-                                    <c:if test="${issue.getResolved() != null}">
+                                    <c:if test='${issue.getStatus().getTitle() != "Resolved" && issue.getResolved() != null}'>
                                         <dt>Time Resolved</dt>
                                         <dd><fmt:formatDate type="both" value="${issue.getResolved()}"/></dd>
                                     </c:if>
