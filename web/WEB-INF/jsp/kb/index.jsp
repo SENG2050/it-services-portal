@@ -43,26 +43,33 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <h2 class="right-line">Browse by Topic</h2>
+                <h2 class="right-line">Browse by Category</h2>
             </div>
-            <c:choose>
-                <c:when test="${categories.size() > 0}">
-                    <c:forEach items="${categories}" var="category">
-                        <div class="col-md-6">
-                            <h3 class="no-margin-top">${category.getTitle()}</h3>
-                            <ul class="list-line">
-                                <c:forEach items="${category.getIssues()}" var="issue">
-                                    <c:choose>
-                                        <c:when test="${issue.isKBArticle()}">
-                                            <li><a href="${baseURL}kb/${issue.getIssueId()}">${issue.getTitle()}</a></li>
-                                       </c:when>
-                                    </c:choose>
-                                </c:forEach>
-                            </ul>
-                        </div>
-                    </c:forEach>
-                </c:when>
-            </c:choose>
         </div>
+        <c:choose>
+            <c:when test="${categories.size() > 0}">
+                <c:forEach items="${categories}" var="category" varStatus="loop">
+                    <c:if test="${loop.index % 2 == 0}">
+                        <div class="row">
+                    </c:if>
+                    <div class="col-md-6">
+                        <h3 class="no-margin-top">${category.getTitle()}</h3>
+                        <ul class="list-line">
+                            <c:forEach items="${category.getIssues()}" var="issue">
+                                <c:choose>
+                                    <c:when test="${issue.isKBArticle()}">
+                                        <li><a href="${baseURL}kb/${issue.getIssueId()}">${issue.getTitle()}</a>
+                                        </li>
+                                    </c:when>
+                                </c:choose>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                    <c:if test="${loop.index % 2 == 1 || loop.index == categories.size() - 1}">
+                        </div>
+                    </c:if>
+                </c:forEach>
+            </c:when>
+        </c:choose>
     </jsp:body>
 </t:page>
