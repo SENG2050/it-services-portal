@@ -9,6 +9,8 @@ import java.io.IOException;
  */
 public class IndexController extends BaseController {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        this.setDontShowNotification(true);
+
         super.doGet(request, response);
 
         response.sendRedirect(this.getBaseURL() + "kb");

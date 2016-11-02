@@ -22,6 +22,7 @@ public class BaseController extends HttpServlet {
     protected boolean loggedIn;
     protected Properties properties;
     protected String baseURL;
+    protected boolean dontShowNotification;
 
     public BaseController() {
         this.properties = new Properties();
@@ -37,6 +38,15 @@ public class BaseController extends HttpServlet {
         this.setUser(null);
         this.setLoggedIn(false);
         this.setBaseURL(this.properties.getProperty("baseURL"));
+        this.setDontShowNotification(false);
+    }
+
+    public boolean getDontShowNotification() {
+        return dontShowNotification;
+    }
+
+    public void setDontShowNotification(boolean dontShowNotification) {
+        this.dontShowNotification = dontShowNotification;
     }
 
     protected PortalBean getPortalBean() {
@@ -108,7 +118,7 @@ public class BaseController extends HttpServlet {
             // Refresh User
             this.setUser(this.portalBean.users.getById(this.getUser().getUserId()));
             // Check Notification
-            if (this.getUser().hasNotification()) {
+            if (this.getUser().hasNotification() && this.getDontShowNotification() == false) {
                 // Set Notification
                 request.setAttribute("notification", this.user.getNotificationText());
                 // Remove notification
