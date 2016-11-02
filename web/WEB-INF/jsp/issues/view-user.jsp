@@ -27,7 +27,7 @@
             </div>
         </section>
 
-        <form method="post">
+        <form method="post" name="viewForm">
             <div class="row">
                 <div class="col-md-9">
                     <section class="css-section">

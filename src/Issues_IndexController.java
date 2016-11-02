@@ -48,17 +48,15 @@ public class Issues_IndexController extends BaseController {
 
 
             if (this.getUser().isAdmin()) {
-
-
                 List<Issue> issues = Arrays.asList(issueWrapper.runQuery());
                 request.setAttribute("issues", issues);
 
                 request.getRequestDispatcher("/WEB-INF/jsp/issues/index.jsp").forward(request, response);
             } else {
+                issueWrapper.addWhere("userId", this.getUser().getUserId());
 
-                List<Issue> issues = Arrays.asList(issueWrapper.getIssuesbyUserId(this.getUser().getUserId()));
+                List<Issue> issues = Arrays.asList(issueWrapper.runQuery());
                 request.setAttribute("issues", issues);
-
 
                 request.getRequestDispatcher("/WEB-INF/jsp/issues/index.jsp").forward(request, response);
             }
