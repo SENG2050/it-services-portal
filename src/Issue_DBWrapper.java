@@ -1,10 +1,7 @@
 import org.apache.commons.lang.StringEscapeUtils;
 
 import java.sql.ResultSet;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Issue_DBWrapper
@@ -38,6 +35,7 @@ public class Issue_DBWrapper extends DBWrapper {
     /**
      * getIssuesbyUserId()
      * Returns a list of all issues in database
+     *
      * @param userId int
      * @return Issue[]
      */
@@ -90,6 +88,7 @@ public class Issue_DBWrapper extends DBWrapper {
 
     /**
      * Create a new issue
+     *
      * @param issue
      * @return
      */
@@ -100,6 +99,7 @@ public class Issue_DBWrapper extends DBWrapper {
 
     /**
      * Update and existing issue
+     *
      * @param issue
      * @return
      */
@@ -110,6 +110,7 @@ public class Issue_DBWrapper extends DBWrapper {
 
     /**
      * Delete an issue by id
+     *
      * @param id
      * @return
      */
@@ -158,39 +159,99 @@ public class Issue_DBWrapper extends DBWrapper {
 
     /**
      * Maps an Issue to an SQL update statement
+     *
      * @return
      */
     @Override
     protected Map<String, String> mapObjectToUpdateValues() {
+        StringJoiner joiner = new StringJoiner(", ");
+
+        if (this.issue.getTitle() == null) {
+            joiner.add("title = NULL");
+        } else {
+            joiner.add("title = '" + StringEscapeUtils.escapeSql(this.issue.getTitle()) + "'");
+        }
+
+        if (this.issue.getDescription() == null) {
+            joiner.add("description = NULL");
+        } else {
+            joiner.add("description = '" + StringEscapeUtils.escapeSql(this.issue.getDescription()) + "'");
+        }
+
+        if (this.issue.getResolution() == null) {
+            joiner.add("resolution = NULL");
+        } else {
+            joiner.add("resolution = '" + StringEscapeUtils.escapeSql(this.issue.getResolution()) + "'");
+        }
+
+        joiner.add("category = '" + this.issue.getCategoryId() + "'");
+        joiner.add("userId = '" + this.issue.getUserId() + "'");
+        joiner.add("status = '" + this.issue.getStatusId() + "'");
+
+        if (this.issue.getCreated() == null) {
+            joiner.add("created = NULL");
+        } else {
+            joiner.add("created = '" + StringEscapeUtils.escapeSql(this.issue.getCreated().toString()) + "'");
+        }
+
+        if (this.issue.getResolved() == null) {
+            joiner.add("resolved = NULL");
+        } else {
+            joiner.add("resolved = '" + StringEscapeUtils.escapeSql(this.issue.getResolved().toString()) + "'");
+        }
+
         Map<String, String> values = new HashMap<>();
-         values.put("values", "title='" + StringEscapeUtils.escapeSql(this.issue.getTitle()) + "', " +
-                "description='" + StringEscapeUtils.escapeSql(this.issue.getDescription()) + "', " +
-                "resolution='" + StringEscapeUtils.escapeSql(this.issue.getResolution()) + "', " +
-                "category=" + this.issue.getCategory().getId() + ", " +
-                "userId=" + this.issue.getUserId() + ", " +
-                "status=" + this.issue.getStatus().getId() + ", " +
-                "created='" + this.issue.getCreated() + "', " +
-                "resolved='" + this.issue.getResolved() + "'");
+        values.put("values", joiner.toString());
         return values;
     }
 
     /**
      * Maps an Issue to an SQL insert statement
      * This is where a new issue is created
+     *
      * @return
      */
     @Override
     protected Map<String, String> mapObjectToInsertValues() {
+        StringJoiner joiner = new StringJoiner(", ");
+
+        if (this.issue.getTitle() == null) {
+            joiner.add("NULL");
+        } else {
+            joiner.add("'" + StringEscapeUtils.escapeSql(this.issue.getTitle()) + "'");
+        }
+
+        if (this.issue.getDescription() == null) {
+            joiner.add("NULL");
+        } else {
+            joiner.add("'" + StringEscapeUtils.escapeSql(this.issue.getDescription()) + "'");
+        }
+
+        if (this.issue.getResolution() == null) {
+            joiner.add("NULL");
+        } else {
+            joiner.add("'" + StringEscapeUtils.escapeSql(this.issue.getResolution()) + "'");
+        }
+
+        joiner.add("'" + this.issue.getCategoryId() + "'");
+        joiner.add("'" + this.issue.getUserId() + "'");
+        joiner.add("'" + this.issue.getStatusId() + "'");
+
+        if (this.issue.getCreated() == null) {
+            joiner.add("NULL");
+        } else {
+            joiner.add("'" + StringEscapeUtils.escapeSql(this.issue.getCreated().toString()) + "'");
+        }
+
+        if (this.issue.getResolved() == null) {
+            joiner.add("NULL");
+        } else {
+            joiner.add("'" + StringEscapeUtils.escapeSql(this.issue.getResolved().toString()) + "'");
+        }
+
         Map<String, String> values = new HashMap<>();
         values.put("columns", "title, description, resolution, category, userId, status, created, resolved");
-        values.put("values", "'" + StringEscapeUtils.escapeSql(this.issue.getTitle()) + "', " +
-                "'" + StringEscapeUtils.escapeSql(this.issue.getDescription()) + "', " +
-                "'" + this.issue.getResolution() + "', " +
-                this.issue.getCategoryId() + ", " +
-                this.issue.getUserId() + ", " +
-                this.issue.getStatusId() + ", " +
-                "'" + this.issue.getCreated() + "', " +
-                "'" + this.issue.getResolved() + "'");
+        values.put("values", joiner.toString());
         return values;
     }
 
