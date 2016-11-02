@@ -1,3 +1,5 @@
+import org.apache.commons.lang.StringEscapeUtils;
+
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -161,9 +163,9 @@ public class Issue_DBWrapper extends DBWrapper {
     @Override
     protected Map<String, String> mapObjectToUpdateValues() {
         Map<String, String> values = new HashMap<>();
-         values.put("values", "title='" + this.issue.getTitle() + "', " +
-                "description='" + this.issue.getDescription() + "', " +
-                "resolution='" + this.issue.getResolution() + "', " +
+         values.put("values", "title='" + StringEscapeUtils.escapeSql(this.issue.getTitle()) + "', " +
+                "description='" + StringEscapeUtils.escapeSql(this.issue.getDescription()) + "', " +
+                "resolution='" + StringEscapeUtils.escapeSql(this.issue.getResolution()) + "', " +
                 "category=" + this.issue.getCategory().getId() + ", " +
                 "userId=" + this.issue.getUserId() + ", " +
                 "status=" + this.issue.getStatus().getId() + ", " +

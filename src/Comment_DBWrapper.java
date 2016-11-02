@@ -1,3 +1,5 @@
+import org.apache.commons.lang.StringEscapeUtils;
+
 import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -147,7 +149,7 @@ public class Comment_DBWrapper extends DBWrapper {
         values.put("columns", "issueId, user, comment, public, created");
         values.put("values", this.comment.getIssueId() + ", " +
                 this.comment.getUser().getUserId() + ", " +
-                "'" + this.comment.getComment() + "', " +
+                "'" + StringEscapeUtils.escapeSql(this.comment.getComment()) + "', " +
                 this.comment.isPublic() + ", " +
                 "'" + this.comment.getCreated() + "'");
         return values;

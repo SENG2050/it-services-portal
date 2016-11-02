@@ -95,7 +95,7 @@ public class Issues_ViewController extends BaseController {
 
                 // Now check if status has been set to Completed
                 // If so, add resolved message
-                if (status == 5 && !commentPara.equals("")) {
+                if (status == 5 && commentPara != null && !commentPara.equals("")) {
                     currentState.setResolution(commentPara);
                     currentState.setResolved(new Timestamp(new Date().getTime()));
                 } else if (status == 5) {
@@ -130,9 +130,9 @@ public class Issues_ViewController extends BaseController {
             }
 
             // Now create comment if needed - note that we dont want to add if its a resolved message
-            if (status != 5 && !commentPara.equals("")) {
+            if (status != 5 && commentPara != null && !commentPara.equals("")) {
                 // Get public flag
-                boolean isPublic = false;
+                boolean isPublic = true;
                 if (this.user.isAdmin()) {
                     isPublic = (Integer.parseInt(request.getParameter("public")) != 0);
                 }
