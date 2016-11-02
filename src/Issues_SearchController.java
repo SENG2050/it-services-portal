@@ -57,7 +57,8 @@ public class Issues_SearchController extends BaseController {
             request.setAttribute("issues", issues);
         }
         else {
-            List<Issue> issues = Arrays.asList(issueWrapper.getIssuesbyUserId(this.getUser().getUserId()));
+            issueWrapper.addWhere("userId", this.getUser().getUserId());
+            List<Issue> issues = Arrays.asList(issueWrapper.runQuery());
             request.setAttribute("issues", issues);
         }
 
