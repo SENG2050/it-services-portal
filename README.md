@@ -32,13 +32,18 @@ You will see a red alert box with a warning for no artifacts marked for deployme
 
 Then click on Apply and finally OK, and you can now run the project using Run > Run 'Tomcat Server'.
 
-## Copying To Tomcat For Submission
+## Database
 
-All that is required to submit the final compiled project is to copy the ```out/artifacts/it_services_portal_war_exploded``` folder to the Tomcat webapps folder, and rename it to ```c3063467_c3146986_c3198477_c3207772_FinalProject```.
+The project comes with the database credentials already established, however if you would like a local copy of the database, you can import the ```sql\create.sql``` file to build the database.
 
-Finally, update the ```/WEB-INF/classes/config/config.properties``` file to have ```baseURL=http\://localhost\:8080/c3063467_c3146986_c3198477_c3207772_FinalProject/``` (trailing slash is required).
+## Logging In
 
-Please note that this is not required to develop the project, as IDEA will take care of deploying Tomcat for you as above.
+The default user credentials are as follows.
+
+| Email Address       | Password | User Type |
+|---------------------|----------|-----------|
+| admin@portal.com.au | abc123   | Admin     |
+| user@portal.com.au  | abc123   | User      |
 
 ## Routes
 
@@ -59,3 +64,11 @@ Please note that this is not required to develop the project, as IDEA will take 
 |                |           |           |                       |                         |                                |                                                                                                      |
 | Yes            | User      | GET, POST | /issues/new           | Issues_NewController    | /issues/new.jsp                | Allows the user to create a new issue                                                                |
 | Yes            | User      | GET, POST | /issues/{id}          | Issues_ViewController   | /issues/view-user.jsp          | Allows the user to view the given issue if they created it, add comments                             |
+
+## Copying To Tomcat For Submission
+
+All that is required to submit the final compiled project is to copy the ```out/artifacts/it_services_portal_war_exploded``` folder to the Tomcat webapps folder, and rename it to ```c3063467_c3146986_c3198477_c3207772_FinalProject```.
+
+Finally, update the ```/WEB-INF/classes/config/config.properties``` file to have ```baseURL=http\://localhost\:8080/c3063467_c3146986_c3198477_c3207772_FinalProject/``` (trailing slash is required).
+
+Please note that this is not required to develop the project, as IDEA will take care of deploying Tomcat for you as above.
