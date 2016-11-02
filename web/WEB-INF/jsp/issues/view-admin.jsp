@@ -27,6 +27,15 @@
             </div>
         </section>
 
+        <c:if test='${issue.getResolution() != null && issue.getResolution().equals("") == false && issue.getResolution().equals("null") == false}'>
+            <h2 class="section-title">Resolution</h2>
+            <div class="panel panel-primary-dark">
+                <div class="panel-body">
+                    <p>${issue.getResolution()}</p>
+                </div>
+            </div>
+        </c:if>
+
         <form method="post" name="viewForm">
             <div class="row">
                 <div class="col-md-9">
@@ -147,7 +156,7 @@
                                     <dt>Time Created</dt>
                                     <dd><fmt:formatDate type="both" value="${issue.getCreated()}"/></dd>
 
-                                    <c:if test="${issue.getResolved() != null}">
+                                    <c:if test='${issue.getStatus().getTitle() != "Resolved" && issue.getResolved() != null}'>
                                         <dt>Time Resolved</dt>
                                         <dd><fmt:formatDate type="both" value="${issue.getResolved()}"/></dd>
                                     </c:if>
@@ -168,7 +177,7 @@
                                 <div class="btn-group btn-block">
                                     <button type="button" class="btn btn-primary btn-block dropdown-toggle"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Submit <span class="caret"></span>
+                                        Submit Comment <span class="caret"></span>
                                     </button>
                                     <ul class="dropdown-menu">
                                         <c:forEach items="${statuses}" var="status">
@@ -176,7 +185,7 @@
                                                 <li>
                                                     <a href="javascript:void();"
                                                        onclick="IssuesViewAdmin.submitAs(${status.getId()});">
-                                                        Submit as ${status.getTitle()}</a>
+                                                        Submit Comment as ${status.getTitle()}</a>
                                                 </li>
                                             </c:if>
                                         </c:forEach>
