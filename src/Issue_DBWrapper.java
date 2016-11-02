@@ -183,8 +183,8 @@ public class Issue_DBWrapper extends DBWrapper {
     protected Map<String, String> mapObjectToInsertValues() {
         Map<String, String> values = new HashMap<>();
         values.put("columns", "title, description, resolution, category, userId, status, created, resolved");
-        values.put("values", "'" + this.issue.getTitle() + "', " +
-                "'" + this.issue.getDescription() + "', " +
+        values.put("values", "'" + StringEscapeUtils.escapeSql(this.issue.getTitle()) + "', " +
+                "'" + StringEscapeUtils.escapeSql(this.issue.getDescription()) + "', " +
                 "'" + this.issue.getResolution() + "', " +
                 this.issue.getCategoryId() + ", " +
                 this.issue.getUserId() + ", " +
